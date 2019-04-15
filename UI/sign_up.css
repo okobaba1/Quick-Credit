@@ -3,8 +3,19 @@ body {
     background-color: #a2afdb;
 }
 * {box-sizing: border-box}
-.container{
-    padding: 16px;
+h1{
+    text-align: center;
+}
+hr {
+    border: 1px solid #808992;
+    margin-bottom: 25px;
+}
+button a{
+    color: white;
+    text-decoration-line: none;
+}
+.head{
+    text-decoration-line: none;
 }
 .subcontainer{
     width: 40%;
@@ -14,16 +25,6 @@ body {
     height: auto;
     overflow: hidden;
     border-radius: 25px;
-}
-h1{
-    text-align: center;
-}
-hr {
-    border: 1px solid #808992;
-    margin-bottom: 25px;
-}
-.head{
-    text-decoration-line: none;
 }
 input[type=text], input[type=password], input[type=number]{
     width: 100%;
@@ -37,18 +38,26 @@ input[type=text]:focus, input[type=password]:focus, input[type=number]:focus {
     background-color: #ddd;
     outline: none;
 }
+button:hover {
+    opacity:1;
+}
+  
+.cancelbtn {
+    background-color: #f44336;
+}
+.signupbtn{
+    background-color: #a2afdb;
+}
 
-.forgotpassword{
-    padding-left: 25px;
-    float: right;
+.cancelbtn, .signupbtn {
+    float: left;
+    padding: 14px 20px;
 }
 button {
-    background-color: #a2afdb;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    border-radius: 50px;
     cursor: pointer;
     width: 100%;
     opacity: 0.9;

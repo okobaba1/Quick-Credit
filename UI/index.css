@@ -2,6 +2,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #a2afdb;
 }
+* {box-sizing: border-box}
 .subcontainer{
     width: 50%;
     margin: 0 auto;
@@ -13,6 +14,10 @@ body {
 }
 h1{
     text-align: center;
+}
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
 }
 .head{
     text-decoration-line: none;
@@ -36,6 +41,7 @@ h1{
     background-color: rgb(173, 127, 90);
     border-radius: 50px;
     text-decoration-line: none;
+    height: 30px;
 }
 
 .usersignin{
@@ -44,11 +50,11 @@ h1{
     background-color: #a2afdb;
     border-radius: 50px;
     text-decoration-line: none;
+    height: 30px;
 }
 
 .userbutton{
     text-align: center;
-    padding: 6px 16px;
     position: relative;
     font-size: 20px;
 }

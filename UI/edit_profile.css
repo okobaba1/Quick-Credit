@@ -9,6 +9,9 @@ h1{
 h2{
     font-style: italic;
 }
+.head{
+    text-decoration: none;
+}
 input[type=text], input[type=password], input[type=number], #country {
     width: 100%;
     padding: 10px;

@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #a2afdb;
+}
+* {box-sizing: border-box}
+.container{
+    padding: 16px;
+}
+.subcontainer{
+    width: 40%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: whitesmoke;
+    height: auto;
+    overflow: hidden;
+    border-radius: 25px;
+}
+h1{
+    text-align: center;
+}
+hr {
+    border: 1px solid #808992;
+    margin-bottom: 25px;
+}
+.head{
+    text-decoration-line: none;
+}
+input[type=text], input[type=password], input[type=number]{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #ebe0e0b4;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.forgotpassword{
+    padding-left: 25px;
+    float: right;
+}
+button {
+    background-color: #a2afdb;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}

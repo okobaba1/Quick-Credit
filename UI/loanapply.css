@@ -13,20 +13,32 @@ hr {
 h2{
     font-style: italic;
 }
+.head{
+    text-decoration-line: none;
+}
 h2 a{
     float: right;
     font-size: 75%;
 }
-.head{
-    text-decoration-line: none;
-}
-p a{
-    float: right;
-}
 .subcontainer{
     background-color: whitesmoke;
-    width: 90%;
+    width: 50%;
     margin: 0 auto;
     border-radius: 25px;
     padding: 10px;
+}
+input[type=number]{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #ebe0e0b4;
+}
+input[type=number]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+.below{
+    margin-bottom: 10px;
 }

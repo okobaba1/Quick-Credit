@@ -2,50 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Quick Credit</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" type="text/css" href="sign_in.css" />
+    <title>Quick Credit</title>
+
 </head>
 
 <body>
     <div class="container">
-        <h1><a class="head" href="index.html">Quick Credit</a></h1>
-        <div class="subcontainer">
-            <form action="#">
-                <h2>Sign in</h2>
-                <hr>
-                <div>
-                    <label for="email">
-                        <b>Email</b>
-                    </label>
-                    <input type="text" placeholder="Enter Email address" name="uname" required>
+        <div class="row">
+            <div class="col-6 home-page-image"></div>
+                <div class="col-6">
+                    <h3 class="admin"><a href="admin_signin.html">Admin sign in</a></h3>
+                    <div class="form">
+                        
+                        <form action="#">
+                        <h2>Log In</h2>
+                        <hr>
+                        <p><b>Email</b></p>
+                        <input class="input" type="text" placeholder="Enter Email" name="email" required>
+                        <p><b>Password</b></p>
+                        <input class="input" type="password" placeholder="Enter Password" name="psw" required>
+                        
+                        <p>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me.
+                        </p>
 
-                    <label for="psw">
-                        <b>Password</b>
-                    </label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
-
-                    <button type="submit">Login</button>
-                    
-                
-
-                    <div class="below">
-                        <label>
-                            <input type="checkbox" checked="checked" name="remember"><span>Remember me</span> 
-                        </label>
-                        <div class="psw forgotpassword">
-                             <a href="#">Forgot password?</a>
+                        <div>
+                            <button type="submit" class="loginbtn">Log In</button>
                         </div>
+                        <div>
+                            <span class="login-text"> <a href="remember.html">Forgotten password?</a></span>
+                        </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-
-
-
     </div>
 </body>
-
 </html>

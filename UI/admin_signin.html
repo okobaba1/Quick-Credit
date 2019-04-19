@@ -11,40 +11,32 @@
 
 <body>
     <div class="container">
-        <h1><a class="head" href="index.html">Quick Credit</a></h1>
-        <div class="subcontainer">
-            <form action="#">
-                <h2>Sign in as an Administrator</h2>
-                <hr>
-                <div>
-                    <label for="email">
-                        <b>Email</b>
-                    </label>
-                    <input type="text" placeholder="Enter Username" name="uname" required>
+        <div class="row">
+            <div class="col-6 home-page-image"></div>
+                <div class="col-6">
+                    <div class="form">
+                        
+                        <form action="#">
+                        <h2>Administrator Log In</h2>
+                        <hr>
+                        <p><b>Email</b></p>
+                        <input class="input" type="text" placeholder="Enter Email" name="email" required>
+                        <p><b>Password</b></p>
+                        <input class="input" type="password" placeholder="Enter Password" name="psw" required>
+                        
+                        <p>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me.
+                        </p>
 
-                    <label for="psw">
-                        <b>Password</b>
-                    </label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
-
-                    <button type="submit">Login</button>
-                    
-                
-
-                    <div class="below">
-                        <label>
-                            <input type="checkbox" checked="checked" name="remember"><span>Remember me</span> 
-                        </label>
-                        <div class="psw forgotpassword">
-                             <a href="#">Forgot password?</a>
+                        <div>
+                            <button type="submit" class="loginbtn">Log In</button>
                         </div>
+                        
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-
-
-
     </div>
 </body>
 

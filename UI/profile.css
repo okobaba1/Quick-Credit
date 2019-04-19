@@ -1,6 +1,5 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #a2afdb;
 }
 * {box-sizing: border-box}
 h1{
@@ -29,4 +28,66 @@ p a{
     margin: 0 auto;
     border-radius: 25px;
     padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
+.col-3 {
+    width: 25%;
+    padding: 20px 20px;
+}
+.col-9 {
+    width: 75%;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #a2afdb;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 16px;
+    text-decoration: none;
+}
+.head {
+    float: left;
+    font-size: 1.5rem;
+}
+.loanapply{
+    float: right;
+}
+li a:hover {
+    background-color: #111;
+}
+.image{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.imagecontainer{
+    width: 100%;
+    height: 200px;
+}
+.fullname, .email, .residence{
+    text-align: center;
+}
+.history{
+    text-align: center;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: white;
+  }
+  

@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="index.css" />
     <title>Quick Credit</title>
-    <link rel="stylesheet" type="text/css" href="index.css" />
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1><a class="head" href="index.html">Quick Credit</a></h1>
-        <div class="subcontainer">
-            <div class="admin">
-                <a href="admin_signin.html">admin login</a>
-            </div>
-            <hr>
-            <div class="info">
-                Quick Credit provides short term soft loans to individuals. Our goal is to alleviate poverty and empower low
-                income earners.
-            </div>
-            <div class="signupsubtitle">
-                Join Quick Credit today....
-            </div>
-            <div class="userbutton">
-                <a class="usersignup" href='sign_up.html'>Sign up</a>
-                <a class="usersignin" href='sign_in.html'>Login</a>
-            </div>
+      <div class="row">
+        <div class="col-6 home-page-image"></div>
+        <div class="col-6">
+          <div class="form">
+            <form action="#">
+              <h2>Sign up</h2>
+              <p>Please fill in this form to create an account with Quick Credit.</p>
+              <hr>
+              <p><b>Email</b></p>
+              <input class="input" type="text" placeholder="Enter Email" name="email" required>
+              <p><b>Password</b></p>
+              <input class="input" type="password" placeholder="Enter Password" name="psw" required>
+              <p><b>Repeat Password</b></p>
+              <input class="input" type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+              <p>
+                <input type="checkbox" name="terms" required /> Click this box
+                if you accept our terms and conditions
+              </p>
+
+              <div>
+                <button type="submit" class="signupbtn">Sign Up</button>
+              </div>
+              <div>
+                <span class="login-text"
+                  >Already have an account? <a href="sign_in.html">Log in</a></span
+                >
+              </div>
+            </form>
+          </div>
         </div>
-        
-        
+      </div>
     </div>
-    
-</body>
+  </body>
 </html>

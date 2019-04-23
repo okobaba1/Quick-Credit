@@ -11,7 +11,7 @@ h2{
 .head{
     text-decoration: none;
 }
-input[type=text], input[type=file], input[type=number] {
+input[type=text], input[type=file], input[type=number], input[type=tel], input[type=date] {
     width: 100%;
     padding: 10px;
     margin: 5px 0 22px 0;
@@ -37,11 +37,6 @@ hr{
     border-radius: 25px;
     padding: 10px;
 }
-.dob{
-    margin: 15px;
-    width: 75%;
-}
-
 .navbar {
     list-style-type: none;
     margin: 0;
@@ -63,10 +58,13 @@ li a {
 li a:hover {
     background-color: #111;
 }
-.gender, .birthday{
+.gender{
     display: flex;
     flex-wrap: wrap;
 }
 #gender_male{
     margin-left: 15px;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
 }

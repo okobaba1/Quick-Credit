@@ -8,7 +8,7 @@ hr {
     margin-bottom: 25px;
 }
 h2{
-    font-style: italic;
+    
     font-size: 20px;
 }
 
@@ -19,7 +19,7 @@ ul {
     overflow: hidden;
     background-color: #a2afdb;
 }
-li a {
+.innavbar {
     display: block;
     color: white;
     text-align: center;
@@ -33,9 +33,11 @@ li a {
 .edit{
     float: right;
 }
-li a:hover {
-    background-color: #111;
+.header{
+    width: 100%;
+    text-align: center;
 }
+
 
 .subcontainer{
     background-color: whitesmoke;
@@ -54,4 +56,11 @@ input[type=number], input[type=text]{
 }
 .below{
     margin-bottom: 10px;
+}
+.btn{
+    padding: 6px 20px;
+    border: none;
+    cursor: pointer;
+    background-color: #a2afdb;
+    color: white;
 }

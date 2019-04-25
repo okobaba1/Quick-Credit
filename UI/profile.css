@@ -59,9 +59,7 @@ li a {
 .loanapply{
     float: right;
 }
-li a:hover {
-    background-color: #111;
-}
+
 .image{
     width: 100%;
     height: 100%;

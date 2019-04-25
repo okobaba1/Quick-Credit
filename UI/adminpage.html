@@ -21,7 +21,7 @@
         <div class="subcontainer">
             
             <h2 class="history">Loan Applications</h2>
-            <table>
+            <table id='table'>
                 <tr>
                     <th>Names</th>
                     <th>Loan Amount (Naira)</th>
@@ -66,9 +66,23 @@
         
 
         </div>
+        <div id="myModal" class="modal">
+
+            <div class="modal-content">
+              <span class="close">&times</span>
+              <div><b> Name: </b><p id="name"></p></div>
+              <div><b> Loan Amount(Naira): </b><p id="loan"></p></div>
+              <div><b> Date Applied: </b><p id="date"></p></div>
+
+              <button class="accept">Accept</button>
+              <button class="reject">Reject</button>
+            </div>
+          
+        </div>
 
     </div>
 
     
 </body>
+<script src="adminpage.js"></script>
 </html>

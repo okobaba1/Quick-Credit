@@ -9,18 +9,17 @@
 </head>
 <body>  
     <ul class="navbar">
-        <li><a class="head" href="index.html">Quick Credit</a></li>
-        <li><a class="edit" href="edit_profile.html">Edit profile</a></li>
+        <li><a class="head innavbar" href="index.html">Quick Credit</a></li>
+        <li><a class="edit innavbar" href="edit_profile.html">Edit profile</a></li>
     </ul>
     <div class="container">
-        <h2>Apply for a loan</h2>
+        
         <hr>
         <div class="subcontainer">
+            <div class="header"><h2>Apply for a loan</h2></div> 
             <form action="#">
                 <div>
-                    <label for="amount">
-                        <b>Amount (naira)</b>
-                    </label>
+                    <label for="amount">Amount (naira)</label>
                     <input type="number" placeholder="Enter amount.." name="loan" min="20000" max="5000000" required>
 
                     <label for="bank">Bank Name</label>
@@ -34,7 +33,7 @@
                             <input type="checkbox" name="recheck" required><span>Confirm input</span> 
                         </label>
                     </div>
-                    <button type="submit">Apply</button>
+                    <button class="btn" type="submit">Apply</button>
                       
                 </div>
             </form>

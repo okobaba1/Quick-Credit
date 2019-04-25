@@ -5,12 +5,7 @@ body {
 h1{
     text-align: center;
 }
-h2{
-    font-style: italic;
-}
-.head{
-    text-decoration: none;
-}
+
 input[type=text], input[type=file], input[type=number], input[type=tel], input[type=date] {
     width: 100%;
     padding: 10px;
@@ -32,7 +27,7 @@ hr{
 
 .subcontainer{
     background-color: whitesmoke;
-    width: 60%;
+    width: 40%;
     margin: 0 auto;
     border-radius: 25px;
     padding: 10px;
@@ -44,24 +39,24 @@ hr{
     overflow: hidden;
     background-color: #a2afdb;
 }
-li a {
+
+.head {
+    float: left;
+    font-size: 1.5rem;
     display: block;
     color: white;
     text-align: center;
     padding: 20px 16px;
     text-decoration: none;
 }
-.head {
-    float: left;
-    font-size: 1.5rem;
-}
-li a:hover {
-    background-color: #111;
-}
+
 .gender{
     display: flex;
     flex-wrap: wrap;
 }
 #gender_male{
     margin-left: 15px;
+}
+.header{
+    text-align: center;
 }

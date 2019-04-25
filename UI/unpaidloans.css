@@ -7,9 +7,7 @@ hr {
     border: 1px solid #808992;
     margin-bottom: 25px;
 }
-h2{
-    font-style: italic;
-}
+
 h2 a{
     float: right;
     font-size: 75%;
@@ -43,9 +41,6 @@ li a {
 }
 .loans{
     float: right;
-}
-li a:hover {
-    background-color: #111;
 }
 
 table {

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
 import userDummyData from '../dummyData/auth';
 

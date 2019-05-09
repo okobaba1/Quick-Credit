@@ -92,6 +92,8 @@ describe('Post user', () => {
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
         expect(res.body.data).be.an('object');
+        expect(res.body.data.firstName).be.a('string');
+        expect(res.body.data.lastName).be.a('string');
         assert.equal(res.body.status, 200);
         assert.equal(res.body.data.message, 'login successsful');
         done();

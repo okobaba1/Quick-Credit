@@ -3,14 +3,14 @@ import chaiHttp from 'chai-http';
 import { getMaxListeners } from 'cluster';
 import app from '../server/app';
 import users from '../server/controller/user';
-// import { it } from 'mocha';
 
-// const assert = chai.assert();
 const {
   expect, assert, should,
 } = chai;
 chai.use(chaiHttp);
 should();
+
+// users sign up tests
 describe('Post user', () => {
   it('should sign up a user', (done) => {
     const user = {
@@ -32,7 +32,6 @@ describe('Post user', () => {
         assert.equal(res.body.status, 'Success');
         done();
       });
-    // expect(true).to.equal(true);
   });
   it('User already exists', (done) => {
     const user = {
@@ -55,7 +54,6 @@ describe('Post user', () => {
         assert.equal(res.body.error, 'User already exists');
         done();
       });
-    // expect(true).to.equal(true);
   });
   it('returns a bad request', (done) => {
     const user = {
@@ -78,6 +76,63 @@ describe('Post user', () => {
         assert.equal(res.body.message, 'All fields are required');
         done();
       });
-    // expect(true).to.equal(true);
   });
+
+  // User login tests
+  it('User Login', (done) => {
+    const user = {
+      email: 'abcd@gmail.com',
+      password: '1234',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        expect(res.body.data).be.an('object');
+        assert.equal(res.body.status, 200);
+        assert.equal(res.body.data.message, 'login successsful');
+        done();
+      });
+  });
+  it('Incorrect Username/Password', (done) => {
+    const user = {
+      email: 'ab@gmail.com',
+      password: '1234',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.status, 404);
+        assert.equal(res.body.error, 'email/password is incorrect');
+        done();
+      });
+  });
+  it('Empty email or password input', (done) => {
+    const user = {
+      email: '',
+      password: '',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(400);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.status, 400);
+        assert.equal(res.body.message, 'kindly put in your email and password');
+        done();
+      });
+  });
+});
+
+describe('Post user ', () => {
+  it;
 });

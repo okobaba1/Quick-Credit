@@ -8,7 +8,7 @@ const auth = [
     address: 'basket road,iyana ipaja',
     status: 'unverified', // unverified or verified
     isAdmin: true,
-    userType: 2,
+    userType: 2, // admin is 2, user is 1
 
   },
 ];

@@ -28,7 +28,7 @@ class User {
       userData = {
         email, firstName, lastName, password, address, status, userType: 1,
       };
-      userDummyData.push(userData); // copy to dummy data
+      userDummyData.push(userData); // copy/add to dummy data
       const token = jwt.sign({
         email,
         id: userDummyData.length,
@@ -59,18 +59,25 @@ class User {
       // check if email is in already signed up
       const existingUser = userDummyData.filter(user => user.email === email
         && user.password === password);
-      if (existingUser.length === 1) {
+      if (existingUser.length >= 1) {
         // generate token
         const token = jwt.sign({
           email,
           id: userDummyData.length,
           userType: 2,
         }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
+        const { firstName } = existingUser[0];
+        const { lastName } = existingUser[0];
+        const { id } = existingUser[0];
         return res.status(200).json({
           status: 200,
           data: {
             message: 'login successsful',
             token,
+            id,
+            firstName,
+            lastName,
+            email,
           },
         });
       }

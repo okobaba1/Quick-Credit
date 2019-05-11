@@ -92,28 +92,28 @@ class User {
     });
   }
 
-  // static verifyUSer(req, res) {
-  //   const { email } = req.params;
-  //   const userToUpdate = userDummyData.filter(user => user.email === email);
-  //   if (userToUpdate[0].status === 'unverified') {
-  //     userToUpdate[0].status = 'verified';
-  //     const {
-  //       status, firstName, lastName, address,
-  //     } = userToUpdate[0];
-  //     return res.status(200).json({
-  //       status: 200,
-  //       data: {
-  //         email,
-  //         firstName,
-  //         lastName,
-  //         address,
-  //         status,
-  //       },
-  //     });
-  //   } return res.status(401).json({
-  //     status: 401,
-  //     error: 'you are not authorized to perform this operation',
-  //   });
-  // }
+  static verifyUSer(req, res) {
+    const { email } = req.params;
+    const userToUpdate = userDummyData.filter(user => user.email === email);
+    if (userToUpdate[0].status === 'unverified') {
+      userToUpdate[0].status = 'verified';
+      const {
+        status, firstName, lastName, address,
+      } = userToUpdate[0];
+      return res.status(200).json({
+        status: 200,
+        data: {
+          email,
+          firstName,
+          lastName,
+          address,
+          status,
+        },
+      });
+    } return res.status(401).json({
+      status: 401,
+      error: 'User is already verified',
+    });
+  }
 }
 export default User;

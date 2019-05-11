@@ -59,7 +59,7 @@ class User {
       // check if email is in already signed up
       const existingUser = userDummyData.filter(user => user.email === email
         && user.password === password);
-      if (existingUser.length >= 1) {
+      if (existingUser.length === 1) {
         // generate token
         const token = jwt.sign({
           email,
@@ -91,6 +91,29 @@ class User {
       message: 'kindly put in your email and password',
     });
   }
-}
 
+  // static verifyUSer(req, res) {
+  //   const { email } = req.params;
+  //   const userToUpdate = userDummyData.filter(user => user.email === email);
+  //   if (userToUpdate[0].status === 'unverified') {
+  //     userToUpdate[0].status = 'verified';
+  //     const {
+  //       status, firstName, lastName, address,
+  //     } = userToUpdate[0];
+  //     return res.status(200).json({
+  //       status: 200,
+  //       data: {
+  //         email,
+  //         firstName,
+  //         lastName,
+  //         address,
+  //         status,
+  //       },
+  //     });
+  //   } return res.status(401).json({
+  //     status: 401,
+  //     error: 'you are not authorized to perform this operation',
+  //   });
+  // }
+}
 export default User;

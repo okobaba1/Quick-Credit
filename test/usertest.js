@@ -1,8 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import { getMaxListeners } from 'cluster';
 import app from '../server/app';
-import users from '../server/controller/user';
 
 const {
   expect, assert, should,
@@ -133,8 +131,4 @@ describe('Post user', () => {
         done();
       });
   });
-});
-
-describe('Post user ', () => {
-  it;
 });

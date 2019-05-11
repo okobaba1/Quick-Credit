@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 should();
 
 
-describe('Get Loan', () => {
+describe('Loans tests', () => {
   it('should bring specific loan ', (done) => {
     const loan = {
       id: 1,
@@ -55,6 +55,37 @@ describe('Get Loan', () => {
         expect(res.body).be.an('object');
         expect(res.body.error).be.a('string');
         assert.equal(res.body.error, 'Not a loan application');
+        done();
+      });
+  });
+  it('should bring all loans ', (done) => {
+    const loan = {
+      status: 'approved',
+      repaid: false,
+    };
+    chai.request(app)
+      .get('/api/v1/loans?status=approved&repaid=false')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        expect(res.body.data).be.a('array');
+        done();
+      });
+  });
+  it('No debtors ', (done) => {
+    const loan = {
+      status: 'pending',
+      repaid: true,
+    };
+    chai.request(app)
+      .get('/api/v1/loans?status=pending&repaid=true')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        expect(res.body.message).be.a('string');
+        assert.equal(res.body.message, 'Not a loan application');
         done();
       });
   });

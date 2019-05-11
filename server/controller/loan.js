@@ -16,6 +16,21 @@ class Loan {
       error: 'Not a loan application',
     });
   }
+
+  static unpaid(req, res) {
+    const { status, repaid } = req.query;
+    const unpaidLoans = loan.filter(user => user.status === status && user.repaid === false);
+    if (unpaidLoans.length >= 1) {
+      return res.status(200).json({
+        status: 200,
+        data: unpaidLoans,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      message: 'Not a loan application',
+    });
+  }
 }
 
 export default Loan;

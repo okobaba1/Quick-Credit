@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 should();
 
 // users sign up tests
-describe('Post user', () => {
+describe('User', () => {
   it('should sign up a user', (done) => {
     const user = {
       email: 'abcd@gmail.com',
@@ -128,6 +128,37 @@ describe('Post user', () => {
         expect(res.body.status).be.a('number');
         assert.equal(res.body.status, 400);
         assert.equal(res.body.message, 'kindly put in your email and password');
+        done();
+      });
+  });
+
+  it('Verify user', (done) => {
+    const user = {
+      email: 'abcd@gmail.com',
+    };
+    chai.request(app)
+      .patch('/api/v1/users/abcd@gmail.com/verify')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.data.status, 'verified');
+        done();
+      });
+  });
+  it('Verify user', (done) => {
+    const user = {
+      email: 'abcd@gmail.com',
+    };
+    chai.request(app)
+      .patch('/api/v1/users/abcd@gmail.com/verify')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.error, 'User is already verified');
         done();
       });
   });

@@ -18,8 +18,8 @@ class Loan {
   }
 
   static unpaid(req, res) {
-    const { status, repaid } = req.query;
-    const unpaidLoans = loan.filter(user => user.status === status && user.repaid === false);
+    const { status } = req.query;
+    const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === false);
     if (unpaidLoans.length >= 1) {
       return res.status(200).json({
         status: 200,
@@ -28,7 +28,22 @@ class Loan {
     }
     return res.status(404).json({
       status: 404,
-      message: 'Not a loan application',
+      message: 'They are no debtors',
+    });
+  }
+
+  static paid(req, res) {
+    const { status } = req.query;
+    const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === true);
+    if (paidLoans.length >= 1) {
+      return res.status(200).json({
+        status: 200,
+        data: paidLoans,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      message: 'Clients aren\'t paying',
     });
   }
 }

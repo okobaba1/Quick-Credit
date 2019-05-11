@@ -58,7 +58,7 @@ describe('Loans tests', () => {
         done();
       });
   });
-  it('should bring all loans ', (done) => {
+  it('should bring all unpaid loans ', (done) => {
     const loan = {
       status: 'approved',
       repaid: false,
@@ -73,19 +73,18 @@ describe('Loans tests', () => {
         done();
       });
   });
-  it('No debtors ', (done) => {
+  it('should bring all paid loans ', (done) => {
     const loan = {
-      status: 'pending',
+      status: 'approved',
       repaid: true,
     };
     chai.request(app)
-      .get('/api/v1/loans?status=pending&repaid=true')
+      .get('/api/v1/loans?status=approved&repaid=true')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(200);
         expect(res.body).be.an('object');
-        expect(res.body.message).be.a('string');
-        assert.equal(res.body.message, 'Not a loan application');
+        expect(res.body.data).be.a('array');
         done();
       });
   });

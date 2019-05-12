@@ -13,5 +13,6 @@ router.get('/loans', Loan.paid);
 router.get('/loan', Loan.allLoans);
 router.get('/loans/:id/repayments', Loan.loanRepayment);
 router.post('/loans', Loan.loanApply);
+router.patch('/loans/:id', Loan.Approveloan);
 
 export default router;

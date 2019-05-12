@@ -124,4 +124,28 @@ describe('Loans tests', () => {
         done();
       });
   });
+  it('Approve or reject loan  ', (done) => {
+    const loan = { status: 'rejected' };
+    chai.request(app)
+      .patch('/api/v1/loans/2')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
+
+  it('User not found  ', (done) => {
+    const loan = { status: 'rejected' };
+    chai.request(app)
+      .patch('/api/v1/loans/1')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        assert.equal(res.body.message, 'User not found');
+        done();
+      });
+  });
 });

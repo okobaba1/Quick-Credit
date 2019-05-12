@@ -46,6 +46,13 @@ class Loan {
       message: 'Clients aren\'t paying',
     });
   }
+
+  static allLoans(req, res) {
+    return res.status(200).json({
+      status: 200,
+      data: loan,
+    });
+  }
 }
 
 export default Loan;

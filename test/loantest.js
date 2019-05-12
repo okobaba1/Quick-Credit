@@ -88,4 +88,16 @@ describe('Loans tests', () => {
         done();
       });
   });
+
+  it('All loans  ', (done) => {
+    const loan = {};
+    chai.request(app)
+      .get('/api/v1/loan')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
 });

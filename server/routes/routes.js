@@ -9,6 +9,7 @@ router.post('/auth/signin', User.login);
 router.patch('/users/:email/verify', User.verifyUSer);
 router.get('/loans/:id', Loan.specific);
 router.get('/loans', Loan.unpaid);
+router.get('/loan', Loan.allLoans);
 
 
 export default router;

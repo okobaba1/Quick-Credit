@@ -114,6 +114,27 @@ class Loan {
       message: 'please check back and apply later',
     });
   }
+
+  static Approveloan(req, res) {
+    const { id } = req.params;
+    const { status } = req.body;
+    const loanApplication = loan.find(user => user.id === Number(id) && user.status === 'pending');
+
+    const index = loan.indexOf('loanApplication');
+    if (loanApplication) {
+      loanApplication.status = status;
+      loan.splice(index, 1, loanApplication);
+      return res.status(200).json({
+        status: 200,
+        message: `loan ${status}`,
+        data: loanApplication,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      message: 'User not found',
+    });
+  }
 }
 
 export default Loan;

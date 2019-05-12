@@ -6,9 +6,9 @@
   "scripts": {
     "prestart": "babel server/ -d dist",
     "start": "node -- dist/app.js",
+    "start:dev": "nodemon server/app.js --exec babel-node",
     "test": "mocha --require @babel/register  --exit --timeout 20000",
-    "coverage": "npm run test -- --coverage",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",

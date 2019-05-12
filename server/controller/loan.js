@@ -53,6 +53,27 @@ class Loan {
       data: loan,
     });
   }
+
+  static loanRepayment(req, res) {
+    const { id } = req.params;
+    const repayArray = loan.filter(user => user.id === Number(id));
+    if (repayArray.length === 1) {
+      const repay = repayArray[0];
+      return res.status(200).json({
+        status: 200,
+        data: {
+          id: repay.id,
+          createdOn: repay.createdOn,
+          monthlyInstallment: repay.paymentInstallment,
+          amount: repay.amount,
+        },
+      });
+    }
+    return res.status(200).json({
+      status: 404,
+      message: 'You are a Lannister',
+    });
+  }
 }
 
 export default Loan;

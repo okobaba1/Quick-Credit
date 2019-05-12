@@ -100,4 +100,28 @@ describe('Loans tests', () => {
         done();
       });
   });
+
+  it('Repayment  ', (done) => {
+    const loan = {};
+    chai.request(app)
+      .get('/api/v1/loans/1/repayments')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
+
+  it('Repayment  ', (done) => {
+    const loan = {};
+    chai.request(app)
+      .get('/api/v1/loans/30/repayments')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
 });

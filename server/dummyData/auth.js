@@ -6,7 +6,7 @@ const auth = [
     lastName: 'Darlington',
     password: 'bkdnn123',
     address: 'basket road,iyana ipaja',
-    status: 'unverified', // unverified or verified
+    status: 'verified', // unverified or verified
     isAdmin: true,
     userType: 2, // admin is 2, user is 1
 

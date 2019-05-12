@@ -1,4 +1,6 @@
+import moment from 'moment';
 import loan from '../dummyData/loans';
+import dummyData from '../dummyData/auth';
 
 class Loan {
   static specific(req, res) {
@@ -72,6 +74,44 @@ class Loan {
     return res.status(200).json({
       status: 404,
       message: 'You are a Lannister',
+    });
+  }
+
+  static loanApply(req, res) {
+    const { email, amount, tenor } = req.body;
+    const checkStatus = dummyData.filter(user => user.status === 'verified');
+    if (checkStatus.length === 1) {
+      // check if user owes money
+      const checkDebt = loan.filter(user => user.email === email && user.balance >= 1);
+      if (checkDebt.length === 0 && tenor <= 12) {
+        const interest = (0.05 * Number(amount));
+        const data = {
+          id: loan.length,
+          firstName: dummyData.firstName,
+          lastName: dummyData.lastName,
+          email,
+          tenor,
+          amount,
+          interest,
+          paymentInstallment: parseFloat((amount + interest) / tenor, 10),
+          status: 'pending',
+          balance: amount,
+          createdOn: moment().toDate(),
+        };
+        loan.push(data);
+        return res.status(201).json({
+          status: 201,
+          data,
+        });
+      }
+      return res.status(400).json({
+        status: 400,
+        message: 'Pay up your debt',
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      message: 'please check back and apply later',
     });
   }
 }

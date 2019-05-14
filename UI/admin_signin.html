@@ -7,37 +7,44 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quick Credit</title>
     <link rel="stylesheet" type="text/css" href="admin_signin.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia"/>
 </head>
 
 <body>
+    <header>
+        <ul class = 'header'>
+            <li><a class="head" href="index.html">Quick Credit</a></li>
+            <li><a class="signin" href="sign_in.html">Not an admin?</a></li>
+        </ul>
+    </header>
     <div class="container">
-        <div class="row">
-            <div class="col-6 home-page-image"></div>
-                <div class="col-6">
-                    <div class="form">   
-                        <form action="#">
-                            <h1><a href="index.html" class="head">Quick Credit</a></h1>
-                            <h2>Administrator Log In</h2>
-                            <hr>
-                            <p><b>Email</b></p>
-                            <input class="input" type="text" placeholder="Enter Email" name="email" required>
-                            <p><b>Password</b></p>
-                            <input class="input" type="password" placeholder="Enter Password" name="psw" required>
-                            
-                            <p>
-                                <input type="checkbox" checked="checked" name="remember"> Remember me.
-                            </p>
+        <div class="form">   
+            <form action="#">
+                <h2>Administrator Log In</h2>
+                <hr>
+                <p><b>Email</b></p>
+                <input class="input" type="text" placeholder="Enter Email" name="email" required>
+                <p><b>Password</b></p>
+                <input class="input" type="password" placeholder="Enter Password" name="psw" required>
+                
+                <p>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me.
+                </p>
 
-                            <div>
-                                <button type="submit" class="loginbtn">Log In</button>
-                            </div>
-                            
-                        </form>
-                    </div>
+                <div>
+                    <button type="submit" class="loginbtn">Log In</button>
                 </div>
-            </div>
-        </div>
+                
+            </form>
+        </div>       
     </div>
+    <div class="services">
+        <div class='left'>
+            <p>Best offer you can get on credit loans is with us</p>
+        </div>
+        <div class='right'></div>
+    </div>
+    <footer class='footer'>&copy; Okorie, victor </footer>
 </body>
 
 </html>

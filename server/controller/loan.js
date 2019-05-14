@@ -43,7 +43,7 @@ class Loan {
     }
     return res.status(404).json({
       status: 404,
-      error: 'Clients aren\'t paying',
+      error: 'No paid loan was found',
     });
   }
 

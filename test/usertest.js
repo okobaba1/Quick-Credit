@@ -69,9 +69,9 @@ describe('User', () => {
         res.should.have.status(400);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('string');
-        expect(res.body.message).be.a('string');
+        expect(res.body.error).be.a('string');
         assert.equal(res.body.status, 'Fail');
-        assert.equal(res.body.message, 'All fields are required');
+        assert.equal(res.body.error, 'All fields are required');
         done();
       });
   });
@@ -127,7 +127,7 @@ describe('User', () => {
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
         assert.equal(res.body.status, 400);
-        assert.equal(res.body.message, 'kindly put in your email and password');
+        assert.equal(res.body.error, 'kindly put in your email and password');
         done();
       });
   });

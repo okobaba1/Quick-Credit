@@ -144,7 +144,7 @@ describe('Loans tests', () => {
       .end((err, res) => {
         res.should.have.status(404);
         expect(res.body).be.an('object');
-        assert.equal(res.body.message, 'User not found');
+        assert.equal(res.body.error, 'User not found');
         done();
       });
   });

@@ -26,7 +26,7 @@ class User {
        && lastName.length && password.length
         && address.length && status.length) {
       userData = {
-        email, firstName, lastName, password, address, status, userType: 1,
+        email, firstName, lastName, password, address, status, isAdmin: false,
       };
       userDummyData.push(userData); // copy/add to dummy data
       const token = jwt.sign({
@@ -48,7 +48,7 @@ class User {
     }
     return res.status(400).json({
       status: 'Fail',
-      message: 'All fields are required',
+      error: 'All fields are required',
     });
   }
 
@@ -88,7 +88,7 @@ class User {
     }
     return res.status(400).json({
       status: 400,
-      message: 'kindly put in your email and password',
+      error: 'kindly put in your email and password',
     });
   }
 
@@ -98,7 +98,7 @@ class User {
     if (userToUpdate[0].status === 'unverified') {
       userToUpdate[0].status = 'verified';
       const {
-        status, firstName, lastName, address,
+        status, firstName, lastName, address, password,
       } = userToUpdate[0];
       return res.status(200).json({
         status: 200,
@@ -106,6 +106,7 @@ class User {
           email,
           firstName,
           lastName,
+          password,
           address,
           status,
         },

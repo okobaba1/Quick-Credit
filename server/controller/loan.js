@@ -20,8 +20,7 @@ class Loan {
   }
 
   static unpaid(req, res) {
-    const { status } = req.query;
-    const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === false);
+    const unpaidLoans = loan.filter(user => user.repaid === false);
     if (unpaidLoans.length >= 1) {
       return res.status(200).json({
         status: 200,
@@ -30,13 +29,12 @@ class Loan {
     }
     return res.status(404).json({
       status: 404,
-      message: 'They are no debtors',
+      error: 'They are no debtors',
     });
   }
 
   static paid(req, res) {
-    const { status } = req.query;
-    const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === true);
+    const paidLoans = loan.filter(user => user.repaid === true);
     if (paidLoans.length >= 1) {
       return res.status(200).json({
         status: 200,
@@ -45,7 +43,7 @@ class Loan {
     }
     return res.status(404).json({
       status: 404,
-      message: 'Clients aren\'t paying',
+      error: 'No paid loan was found',
     });
   }
 
@@ -71,19 +69,19 @@ class Loan {
         },
       });
     }
-    return res.status(200).json({
-      status: 404,
-      message: 'You are a Lannister',
+    return res.status(401).json({
+      status: 401,
+      error: 'You still owe some money',
     });
   }
 
   static loanApply(req, res) {
     const { email, amount, tenor } = req.body;
-    const checkStatus = dummyData.filter(user => user.status === 'verified');
+    const checkStatus = dummyData.filter(user => user.status === 'verified' && user.email === email);
     if (checkStatus.length === 1) {
       // check if user owes money
-      const checkDebt = loan.filter(user => user.email === email && user.balance >= 1);
-      if (checkDebt.length === 0 && tenor <= 12) {
+      const checkDebt = loan.filter(user => user.email === email && user.balance === 0);
+      if (checkDebt.length === 1 && tenor <= 12) {
         const interest = (0.05 * Number(amount));
         const data = {
           id: loan.length,
@@ -104,14 +102,14 @@ class Loan {
           data,
         });
       }
-      return res.status(400).json({
-        status: 400,
-        message: 'Pay up your debt',
+      return res.status(401).json({
+        status: 401,
+        error: 'Pay up your debt',
       });
     }
     return res.status(404).json({
       status: 404,
-      message: 'please check back and apply later',
+      error: 'Account status is not verified yet, try again later',
     });
   }
 
@@ -132,7 +130,7 @@ class Loan {
     }
     return res.status(404).json({
       status: 404,
-      message: 'User not found',
+      error: 'User not found',
     });
   }
 }

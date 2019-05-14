@@ -119,7 +119,7 @@ describe('Loans tests', () => {
       .get('/api/v1/loans/30/repayments')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         done();
       });
@@ -144,7 +144,7 @@ describe('Loans tests', () => {
       .end((err, res) => {
         res.should.have.status(404);
         expect(res.body).be.an('object');
-        assert.equal(res.body.message, 'User not found');
+        assert.equal(res.body.error, 'User not found');
         done();
       });
   });

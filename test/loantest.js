@@ -119,7 +119,7 @@ describe('Loans tests', () => {
       .get('/api/v1/loans/30/repayments')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         done();
       });

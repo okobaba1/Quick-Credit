@@ -2,51 +2,22 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0 auto;
-    padding: 0 4px;
-    height: 100%;
+    padding: 0;
+    margin: 0;
     
 }
-.row {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 4px;
-}
-.container {
-    width: 100%;
-    overflow: auto;
-    margin: auto;
-    background-image: url('https://images.pexels.com/photos/106152/euro-coins-currency-money-106152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-    background-size: cover;
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 90vh;
-}
-.col-6 {
-    width: 50%;
-}
-.home-page-image {
-    height: 100vh;
-    background-image: url('./image/loan.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
 
-.form {
-    width: 50%;
-    height: auto;
-    padding: 5px;
-    /* border: 1px solid gray; */
-    margin: 20px auto;
+.container {
+    width: 80%;
+    margin: auto;
+    height: 400px;
 }
 .signupbtn {
-    width: 100%;
-    padding: 16px 0;
+    width: 50%;
+    padding: 10px 0;
     border: none;
     color: beige;
-    background-color: #a2afdb;
+    background-color: #36373a;
     border-radius: 10px;
     margin-bottom: 5px;
     cursor: pointer;
@@ -70,38 +41,62 @@ body {
     float: right;
 }
 .signup{
-    height: 60vh;
+    height: 60%;
     margin: 0 auto;
     width: 40%;
-    font-size: 8vh;
+    font-size: 10vh;
     text-align: center;
     color: whitesmoke;
-    padding: 60px;
+    padding: 60px 0;
     font-family: 'Sofia';
+    color: #36373a;
 }
 .footer{
-    height: 1.5em;
-    background-color: #873509;
+    height: 3rem;
+    background-color: #36373a;
+    font-size: 0.8rem;
+    padding: 2px;
+    color: whitesmoke;
+    padding: 10px 0;
 }
 .header{
-    background-color: #873509;
+    background-color: #36373a;
 }
 ul{
     margin-block-end: 0em;
     list-style-type: none;
     overflow: hidden;
 }
-
-.about{
-    color: whitesmoke;
-    font-family: 'Sofia';
-
+.class img{
+    object-fit: cover;
 }
+
 .services{
-    width: 50%;
-    height: 100vh;
-    d;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    font-family: 'sofia';
 }
-.serve{
-    text-align: center;
+
+.left{
+    border: 2px;
+    width: 45%;
+    float: left;
+    padding: 0 10px;
+    margin: 0 2%;
+    height: 300px;
+    font-size: 50px;
+}
+.right{
+    border: 2px;
+    width: 45%;
+    float: left;
+    padding: 0 10px;
+    background-image: url('./image/wallet.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 300px;
+    margin: 0 2%;
 }

@@ -4,6 +4,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0 auto;
     padding: 0 4px;
+    height: 100%;
+    
 }
 .row {
     width: 100%;
@@ -13,9 +15,12 @@ body {
 }
 .container {
     width: 100%;
-    min-height: 100vh;
     overflow: auto;
     margin: auto;
+    background-image: url('https://images.pexels.com/photos/106152/euro-coins-currency-money-106152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 90vh;
 }
 .col-6 {
     width: 50%;
@@ -47,27 +52,56 @@ body {
     cursor: pointer;
 }
 
-input[type=text], input[type=password], input[type=number]{
-    width: 100%;
-    padding: 3px;
-    height: 40px;
-    border: none;
-    background: #ebe0e0b4;
-}
-
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus {
-    background-color: #ddd;
-    outline: none;
-}
-.head{
-
+.head {
+    display: block;
+    color: white;
     text-align: center;
-}
-h1 a{
+    padding: 20px 16px;
     text-decoration: none;
+    float: left;
+    font-size: 1.5rem;
+}
+.signin{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 16px;
+    text-decoration: none;
+    float: right;
+}
+.signup{
+    height: 60vh;
+    margin: 0 auto;
+    width: 40%;
+    font-size: 8vh;
+    text-align: center;
+    color: whitesmoke;
+    padding: 60px;
+    font-family: 'Sofia';
+}
+.footer{
+    height: 1.5em;
+    background-color: #873509;
+}
+.header{
+    background-color: #873509;
+}
+ul{
+    margin-block-end: 0em;
+    list-style-type: none;
+    overflow: hidden;
 }
 
-p{
-    margin-block-start: 5px;
-    margin-block-end: 5px;
+.about{
+    color: whitesmoke;
+    font-family: 'Sofia';
+
+}
+.services{
+    width: 50%;
+    height: 100vh;
+    d;
+}
+.serve{
+    text-align: center;
 }

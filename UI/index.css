@@ -48,7 +48,7 @@ body {
     text-align: center;
     color: whitesmoke;
     padding: 60px 0;
-    font-family: 'Sofia';
+    font-family: 'Roboto';
     color: #36373a;
 }
 .footer{
@@ -77,7 +77,7 @@ ul{
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 50px;
-    font-family: 'sofia';
+    font-family: 'Roboto';
 }
 
 .left{

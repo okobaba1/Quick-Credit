@@ -6,40 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quick Credit</title>
     <link rel="stylesheet" type="text/css" href="loanapply.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia"/>
 </head>
 <body>  
-    <ul class="navbar">
-        <li><a class="head innavbar" href="index.html">Quick Credit</a></li>
-        <li><a class="edit innavbar" href="edit_profile.html">Edit profile</a></li>
-    </ul>
-    <div class="container">
-        
-        <hr>
-        <div class="subcontainer">
-            <div class="header"><h2>Apply for a loan</h2></div> 
-            <form action="#">
-                <div>
-                    <label for="amount">Amount (naira)</label>
-                    <input type="number" placeholder="Enter amount.." name="loan" min="20000" max="5000000" required>
-
-                    <label for="bank">Bank Name</label>
-                    <input type="text" id="bank" name="bankname" placeholder="Your bank name.." required>
-
-                    <label for="acct">Account Number</label>
-                    <input type="number" id="acct" name="acctnumber" placeholder="Your account number.." required>
-
-                    <div class="below">
-                        <label>
-                            <input type="checkbox" name="recheck" required><span>Confirm input</span> 
-                        </label>
-                    </div>
-                    <button class="btn" type="submit">Apply</button>
-                      
-                </div>
-            </form>
-            
+    <header>
+        <ul class = 'header'>
+            <li><a class="head" href="index.html">Quick Credit</a></li>
+            <li><a class="logout" href="#">Log out</a></li>
+        </ul>
+    </header>     
+    <div class="subcontainer">
+        <div class="sidebar">
+            <a href="#">Apply for a Loan</a>
+            <a href="profile.html">Loan Repayment</a>
         </div>
+        <div class="content">
+            <div class="form">
+                <form action="#">
+                
+                    <h2 class="title">Apply for a loan</h2>
+                    <label for="amount">Amount (naira)</label>
+                    <input type="number" placeholder="Enter amount.." name="loan" required>
 
+
+                    <label for="acct">Tenor</label>
+                    <input type="number" id="acct" name="tenor" placeholder="Tenor..." min="1" max="12" required>
+
+                    <button class="btn" type="submit">Apply</button>                   
+                
+                </form>
+            </div>
+        </div>
     </div>
+    <footer class='footer'>&copy; Okorie, victor </footer>
+
 </body>
 </html>

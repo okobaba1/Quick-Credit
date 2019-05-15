@@ -8,80 +8,96 @@
     <link rel="stylesheet" type="text/css" href="adminpage.css"/>
 </head>
 <body>
-    <ul>
-        <li><a class="head navbar" href="index.html">Quick Credit</a></li>
-        <li><a class="verify navbar" href="verify.html">verify users</a></li>
-        <li><a class="unpaid navbar" href="unpaidloans.html">View Unpaid loans</a></li>
-        <li><a class="paid navbar" href="repaidloans.html">Fully paid loans</a></li>
-    </ul>
-              
-    <div class="container">
-        <h2>Administrator Dashboard</h2>
-        <hr>
-        <div class="subcontainer">
-            
+    <header>
+        <ul class = 'header'>
+            <li><a class="head" href="index.html">Quick Credit</a></li>
+            <li><a class="logout" href="#">Log out</a></li>
+        </ul>
+    </header>
+   
+    <div class="subcontainer">
+        <div class="sidebar">
+            <a href="adminpage.html">Loan Applications</a>
+            <a href="verify.html">Verify Clients</a>
+            <a href="repaidloans.html">Paid Loans</a>
+            <a href="unpaidloans.html">Unpaid Loans</a>
+        </div>
+        <div class="content">
             <h2 class="history">Loan Applications</h2>
             <table id='table'>
                 <tr>
-                    <th>Names</th>
-                    <th>Loan Amount (Naira)</th>
-                    <th>Date Applied</th>
+                    <th>Users</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Tenor</th>
                 </tr>
                 <tr>
-                    <td>vic O</td>
+                    <td>vico@gmail.com</td>
                     <td>200000</td>
-                    <td></td>
+                    <td>pending</td>
+                    <td>24/03/2017</td>
+                    <td>5</td>
                 </tr>
                 <tr>
-                    <td>speed darlington</td>
-                    <td>224394948</td>
-                    <td>Francisco Chang</td>
+                    <td>speeddarlington@yahoo.com</td>
+                    <td>2000</td>
+                    <td>rejected</td>
+                    <td>01/05/2018</td>
+                    <td>12</td>
                     
                 </tr>
                 <tr>
-                    <td>basket mouth</td>
-                    <td>38848484</td>
-                    <td>Roland Mendel</td>
+                    <td>basketmouth@hotmail.com</td>
+                    <td>34000</td>
+                    <td>pending</td>
+                    <td>19/12/2018</td>
+                    <td>10</td>
                     
                 </tr>
                 <tr>
-                    <td>lolololololololol</td>
+                    <td>jimmysobibo@yahoo.com</td>
                     <td>39383837</td>
-                    <td>Helen Bennett</td>
-                   
-                </tr>
-                <tr>
-                    <td>hahahahaahha</td>
-                    <td>292828373</td>
-                    <td>Yoshi Tannamuri</td>
+                    <td>pending</td>
+                    <td>14/02/2018</td>
+                    <td>12</td>
                     
                 </tr>
                 <tr>
-                    <td>hehehehehehe</td>
-                    <td>92828288282</td>
-                    <td>Giovanni Rovelli</td>
+                    <td>olusegunobansanjo@gmail.com</td>
+                    <td>39000</td>
+                    <td>approved</td>
+                    <td>30/04/2019</td>
+                    <td>8</td>
+                    
+                </tr>
+                <tr>
+                    <td>farouq@gmail.com</td>
+                    <td>43000</td>
+                    <td>pending</td>
+                    <td>30/01/2019</td>
+                    <td>12</td>
                     
                 </tr>
             </table>
-        
-
-        </div>
-        <div id="myModal" class="modal">
-
-            <div class="modal-content">
-              <span class="close">&times</span>
-              <div><b> Name: </b><p id="name"></p></div>
-              <div><b> Loan Amount(Naira): </b><p id="loan"></p></div>
-              <div><b> Date Applied: </b><p id="date"></p></div>
-
-              <button class="accept">Accept</button>
-              <button class="reject">Reject</button>
-            </div>
-          
         </div>
 
     </div>
+    <div id="myModal" class="modal">
 
+        <div class="modal-content">
+            <span class="close">&times</span>
+            <div><b> Name: </b><p id="name"></p></div>
+            <div><b> Loan Amount(Naira): </b><p id="loan"></p></div>
+            <div><b> Date Applied: </b><p id="date"></p></div>
+
+            <button class="accept">Accept</button>
+            <button class="reject">Reject</button>
+        </div>
+        
+    </div>
+
+    <footer class='footer'>&copy; Okorie, victor </footer>
     
 </body>
 <script src="adminpage.js"></script>

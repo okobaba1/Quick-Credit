@@ -1,62 +1,84 @@
+
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 * {box-sizing: border-box}
-h1{
+.history{
     text-align: center;
 }
-hr {
-    border: 1px solid #808992;
-    margin-bottom: 25px;
-}
 
-h2 a{
-    float: right;
-    font-size: 75%;
-}
-.head{
-    text-decoration-line: none;
-}
-p a{
-    float: right;
-}
+
 .subcontainer{
     background-color: whitesmoke;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    border-radius: 25px;
-    padding: 10px;
     display: flex;
     flex-wrap: wrap;
 }
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #a2afdb;
+.content {
+    width: 85%;
+    overflow: auto;
 }
-.navbar {
+.sidebar{
+    height: 100vh;
+    width: 15%;
+    position: relative;
+    z-index: 1;
+    top: 0px;
+    left: 0;
+    background-color: #dedfe7;
+    overflow: auto;
+}
+div a{
+    display: inline-block;
+    margin-left: 14px;
+    padding-top: 20px;
+}
+.footer{
+    height: 3rem;
+    background-color: #36373a;
+    font-size: 0.8rem;
+    padding: 2px;
+    color: whitesmoke;
+    padding: 10px 0;
+}
+ul{
+    margin-block-end: 0em;
+    list-style-type: none;
+    overflow: hidden;
+    padding-inline-start: 0;
+}
+
+.head{
     display: block;
     color: white;
     text-align: center;
-    padding: 20px 8px;
+    padding: 20px 16px;
     text-decoration: none;
-}
-.head {
     float: left;
     font-size: 1.5rem;
 }
-.verify, .unpaid, .paid{
+
+.logout{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 16px;
+    text-decoration: none;
     float: right;
-    margin-left: 20px;
 }
+.header{
+    background-color: #36373a;
+    margin-top: 0;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
+
 td, th {
     border: 1px solid #dddddd;
     text-align: left;

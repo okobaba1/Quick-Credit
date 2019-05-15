@@ -92,9 +92,7 @@ ul{
     overflow: hidden;
     padding-inline-start: 0;
 }
-.class img{
-    object-fit: cover;
-}
+
 
 .services{
     width: 100%;

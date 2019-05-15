@@ -6,71 +6,74 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quick Credit</title>
     <link rel="stylesheet" type="text/css" href="profile.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia"/>
 </head>
 <body>
-    <ul>
-        <li><a class="head" href="index.html">Quick Credit</a></li>
-        <li><a class="loanapply" href="loanapply.html">Apply for a loan</a></li>
-    </ul>
-              
-    <div class="container">
-        <h2>Your profile</h2>
-        <hr>
-        <div class="subcontainer">
-            <div class="col-3">
-                <div class="imagecontainer" >
-                    <img class= 'image' src="./image/defaultimg.jpg" alt="defaultimg">
-                </div>
-                <h2 class="fullname">client full name</h2>
-                <div class="email">user@email.com</div>
-                <div class="residence">user home address</div>
-
-            </div>
-            <div class="col-9">
-                <h2 class="history">Loans history</h2>
-                <table>
-                    <tr>
-                        <th>Loan Amount (Naira)</th>
-                        <th>Date Applied</th>
-                        <th>Date paid</th>
-                    </tr>
-                    <tr>
-                        <td>200000</td>
-                        <td></td>
-                        <td>Germany</td>
-                    </tr>
-                    <tr>
-                        <td>224394948</td>
-                        <td>Francisco Chang</td>
-                        <td>Mexico</td>
-                    </tr>
-                    <tr>
-                        <td>38848484</td>
-                        <td>Roland Mendel</td>
-                        <td>Austria</td>
-                    </tr>
-                    <tr>
-                        <td>39383837</td>
-                        <td>Helen Bennett</td>
-                        <td>UK</td>
-                    </tr>
-                    <tr>
-                        <td>292828373</td>
-                        <td>Yoshi Tannamuri</td>
-                        <td>Canada</td>
-                    </tr>
-                    <tr>
-                        <td>92828288282</td>
-                        <td>Giovanni Rovelli</td>
-                        <td>Italy</td>
-                    </tr>
-                </table>
-            </div>
-
+    <header>
+        <ul class = 'header'>
+            <li><a class="head" href="index.html">Quick Credit</a></li>
+            <li><a class="logout" href="">Log out</a></li>
+        </ul>
+    </header>
+        
+        
+    <div class="subcontainer">
+        <div class="sidebar">
+            <a href="loanapply.html">Apply for a Loan</a>
+            <a href="#">Loan Repayment</a>
+        </div>
+        
+        <div class="content">
+            <h2 class="title">Loans Repayment History</h2>
+            <table>
+                <tr>
+                    <th>Loan Amount (Naira)</th>
+                    <th>Date paid</th>
+                    <th>Amount paid</th>
+                    <th>Balance</th>
+                </tr>
+                <tr>
+                    <td>200000</td>
+                    <td>27/05/2018</td>
+                    <td>50000</td>
+                    <td>190500</td>
+                </tr>
+                <tr>
+                    <td>200000</td>
+                    <td>05/07/2018</td>
+                    <td>10000</td>
+                    <td>180500</td>
+                </tr>
+                <tr>
+                    <td>200000</td>
+                    <td>24/07/2018</td>
+                    <td>30000</td>
+                    <td>150050</td>
+                </tr>
+                <tr>
+                    <td>200000</td>
+                    <td>16/09/2018</td>
+                    <td>1000</td>
+                    <td>15006</td>
+                </tr>
+                <tr>
+                    <td>200000</td>
+                    <td>18/10/2018</td>
+                    <td>20000</td>
+                    <td>90590</td>
+                </tr>
+                <tr>
+                    <td>200000</td>
+                    <td>03/01/2019</td>
+                    <td>49000</td>
+                    <td>24000</td>
+                </tr>
+            </table>
         </div>
 
     </div>
 
+    <footer class='footer'>&copy; Okorie, victor </footer>
     
 </body>
 </html>

@@ -8,70 +8,73 @@
     <link rel="stylesheet" type="text/css" href="verify.css"/>
 </head>
 <body>
-    <ul>
-        <li><a class="head" href="index.html">Quick Credit</a></li>
-        <li><a class="adminview" href="adminpage.html">View Loan Applications</a></li>
-    </ul>
+    <header>
+        <ul class = 'header'>
+            <li><a class="head" href="index.html">Quick Credit</a></li>
+            <li><a class="logout" href="#">Log out</a></li>
+        </ul>
+    </header>
               
-    <div class="container">
-        <h2>Administrator Dashboard</h2>
-        <hr>
-        <div class="subcontainer">
-            
-            <h2>Verify Users Address</h2>
+    <div class="subcontainer">
+        <div class="sidebar">
+            <a href="adminpage.html">Loan Applications</a>
+            <a href="verify.html">Verify Clients</a>
+            <a href="repaidloans.html">Paid Loans</a>
+            <a href="unpaidloans.html">Unpaid Loans</a>
+        </div>
+        <div class="content">
+            <h2>Verify Users</h2>
             <form action="#">
                 <table>
                     <tr>
                         <th>Names</th>
-                        <th>Work address</th>
-                        <th>Residential Address</th>
-                        <th>Confirm addresses</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Confirm</th>
                     </tr>
                     <tr>
-                        <td>vic O</td>
-                        <td>200000</td>
-                        <td></td>
+                        <td>Bayero Kelvin</td>
+                        <td>b.kelv@gmail.com</td>
+                        <td>8. grio streeet</td>
                         <td><input type="checkbox" name="confirm" id="confirm"></td>
                     </tr>
                     <tr>
-                        <td>speed darlington</td>
-                        <td>224394948</td>
-                        <td>Francisco Chang</td>
+                        <td>Speed Darlington</td>
+                        <td>speedy@gmail.com</td>
+                        <td>Francisco Chang street, Lagos</td>
                         <td><input type="checkbox" name="confirm" id="confirm"></td>
                     </tr>
                     <tr>
-                        <td>basket mouth</td>
-                        <td>38848484</td>
-                        <td>Roland Mendel</td>
+                        <td>Victor Okorie</td>
+                        <td>draohd@yahoo.com</td>
+                        <td>32 Tract street, Niger</td>
                         <td><input type="checkbox" name="confirm" id="confirm"></td>
                     </tr>
                     <tr>
-                        <td>lolololololololol</td>
-                        <td>39383837</td>
-                        <td>Helen Bennett</td>
+                        <td>George Walter</td>
+                        <td>rasheed@yahoo.com</td>
+                        <td>Helen Bennet street, Abuja</td>
                         <td><input type="checkbox" name="confirm" id="confirm"></td>
                     </tr>
                     <tr>
-                        <td>hahahahaahha</td>
-                        <td>292828373</td>
-                        <td>Yoshi Tannamuri</td>
+                        <td>Chukwuma Okonkwo</td>
+                        <td>chukwuokon@hotmail.com</td>
+                        <td>5 pound road, Aba</td>
                         <td><input type="checkbox" name="confirm" id="confirm"></td>
                     </tr>
                     <tr>
-                        <td>hehehehehehe</td>
-                        <td>92828288282</td>
-                        <td>Giovanni Rovelli</td>
+                        <td>Zulu Okonkwo</td>
+                        <td>zulu@yahoo.com</td>
+                        <td>6 street barracks, Ojo</td>
                         <td><input type="checkbox" name="confirm" id="confirm"></td>
                     </tr>
                 </table>
                 <button type="submit" class="submit">Submit Confirmation</button>    
             </form>
-            
-    
         </div>
 
     </div>
-
-    
+    <footer class='footer'>&copy; Okorie, victor </footer>
+   
 </body>
 </html>

@@ -61,6 +61,7 @@ body {
 }
 .header{
     background-color: #36373a;
+    margin-top: 0;
 }
 ul{
     margin-block-end: 0em;

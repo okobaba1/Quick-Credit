@@ -10,7 +10,6 @@ class User {
       lastName,
       password,
       address,
-      status,
     } = req.body;
     let userData = {};
     const existingUser = userDummyData.filter(user => user.email === email);
@@ -21,19 +20,19 @@ class User {
         error: 'User already exists',
       });
     }
+
     // Confirm for empty requests
     if (email.length && firstName.length
        && lastName.length && password.length
-        && address.length && status.length) {
+        && address.length) {
       userData = {
-        email, firstName, lastName, password, address, status, isAdmin: false,
+        id: userDummyData.length, email, firstName, lastName, password, address, status: 'unverified', isAdmin: false,
       };
       userDummyData.push(userData); // copy/add to dummy data
       const token = jwt.sign({
         email,
-        id: userDummyData.length,
-        userType: 1,
-      }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
+        id: userData.id,
+      }, process.env.SECRET_KEY, { expiresIn: '24hrs' });
 
       return res.status(201).json({
         status: 'Success',

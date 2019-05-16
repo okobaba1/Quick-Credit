@@ -8,8 +8,21 @@ const auth = [
     address: 'basket road,iyana ipaja',
     status: 'verified', // unverified or verified
     isAdmin: true,
-    userType: 2, // admin is 2, user is 1
+    userType: 'super', // super admin
 
   },
+
+  {
+    id: 2,
+    email: 'tracktamos@email.com',
+    firstName: 'Amosbwllo',
+    lastName: 'Darling',
+    password: 'bkdnn12',
+    address: 'basket road,iyana ipaja',
+    status: 'unverified', // unverified or verified
+    isAdmin: false,
+
+  },
+
 ];
 export default auth;

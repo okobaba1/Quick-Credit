@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../controller/user';
 import Loan from '../controller/loan';
 
+
 const router = express.Router();
 
 router.post('/auth/signup', User.createUser);
@@ -14,5 +15,6 @@ router.get('/loan', Loan.allLoans);
 router.get('/loans/:id/repayments', Loan.loanRepayment);
 router.post('/loans', Loan.loanApply);
 router.patch('/loans/:id', Loan.Approveloan);
+router.post('/loans/:id/repayment', Loan.repaymentRecord);
 
 export default router;

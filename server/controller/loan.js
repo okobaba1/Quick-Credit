@@ -133,6 +133,31 @@ class Loan {
       error: 'User not found',
     });
   }
+
+  static repaymentRecord(req, res) {
+    const { id } = req.params;
+    const findLoan = loan.filter(user => user.id === Number(id));
+    if (findLoan.length === 1) {
+      // console.log(findLoan);
+      const foundLoan = findLoan[0];
+      return res.status(201).json({
+        status: 201,
+        data: {
+          loanId: id,
+          createdOn: foundLoan.createdOn,
+          amount: foundLoan.amount,
+          monthlyInstallment: foundLoan.paymentInstallment,
+          paidAmount: (foundLoan.amount - foundLoan.balance),
+          balance: foundLoan.balance,
+        },
+      });
+    }
+    console.log(findLoan);
+    return res.status(404).json({
+      status: 404,
+      error: 'No loans found',
+    });
+  }
 }
 
 export default Loan;

@@ -148,4 +148,28 @@ describe('Loans tests', () => {
         done();
       });
   });
+
+  it('payment record  ', (done) => {
+    const loan = { id: 1 };
+    chai.request(app)
+      .post('/api/v1/loans/1/repayment')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(201);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
+
+  it('record  ', (done) => {
+    const loan = { id: 1 };
+    chai.request(app)
+      .post('/api/v1/loans/4/repayment')
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
 });

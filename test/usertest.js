@@ -12,12 +12,11 @@ should();
 describe('User', () => {
   it('should sign up a user', (done) => {
     const user = {
-      email: 'abcd@gmail.com',
+      email: 'victor@gmail.com',
       firstName: 'moke',
       lastName: 'ilo',
-      password: '1234',
-      address: '12 wer',
-      status: 'unverified',
+      password: '1234hdgdpds',
+      address: 'Lagos house',
     };
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -33,12 +32,11 @@ describe('User', () => {
   });
   it('User already exists', (done) => {
     const user = {
-      email: 'abcd@gmail.com',
+      email: 'amos@email.com',
       firstName: 'moke',
       lastName: 'ilo',
-      password: '1234',
+      password: 'jdhsbahs',
       address: '12 wer',
-      status: 'unverified',
     };
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -68,10 +66,6 @@ describe('User', () => {
       .end((err, res) => {
         res.should.have.status(400);
         expect(res.body).be.an('object');
-        expect(res.body.status).be.a('string');
-        expect(res.body.error).be.a('string');
-        assert.equal(res.body.status, 'Fail');
-        assert.equal(res.body.error, 'All fields are required');
         done();
       });
   });
@@ -79,8 +73,8 @@ describe('User', () => {
   // User login tests
   it('User Login', (done) => {
     const user = {
-      email: 'abcd@gmail.com',
-      password: '1234',
+      email: 'amos@email.com',
+      password: 'bkdnn123',
     };
     chai.request(app)
       .post('/api/v1/auth/signin')
@@ -133,11 +127,9 @@ describe('User', () => {
   });
 
   it('Verify user', (done) => {
-    const user = {
-      email: 'abcd@gmail.com',
-    };
+    const user = {};
     chai.request(app)
-      .patch('/api/v1/users/abcd@gmail.com/verify')
+      .patch('/api/v1/users/tracktamos@email.com/verify')
       .send(user)
       .end((err, res) => {
         res.should.have.status(200);
@@ -148,17 +140,43 @@ describe('User', () => {
       });
   });
   it('Verify user', (done) => {
-    const user = {
-      email: 'abcd@gmail.com',
-    };
+    const user = {};
     chai.request(app)
-      .patch('/api/v1/users/abcd@gmail.com/verify')
+      .patch('/api/v1/users/amos@email.com/verify')
       .send(user)
       .end((err, res) => {
         res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
         assert.equal(res.body.error, 'User is already verified');
+        done();
+      });
+  });
+
+  it('Super Admin success', (done) => {
+    const user = {};
+    chai.request(app)
+      .patch('/api/v1/admin/2')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(201);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.message, 'Admin created succesfully');
+        done();
+      });
+  });
+
+  it.skip('Super Admin failed', (done) => {
+    const user = {};
+    chai.request(app)
+      .patch('/api/v1/users/29')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        // expect(res.body.status).be.a('number');
+        assert.equal(res.body.error, 'User not found');
         done();
       });
   });

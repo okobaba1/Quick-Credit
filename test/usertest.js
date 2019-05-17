@@ -167,10 +167,10 @@ describe('User', () => {
       });
   });
 
-  it.skip('Super Admin failed', (done) => {
+  it('Super Admin failed', (done) => {
     const user = {};
     chai.request(app)
-      .patch('/api/v1/users/29')
+      .patch('/api/v1/admin/29')
       .send(user)
       .end((err, res) => {
         res.should.have.status(404);

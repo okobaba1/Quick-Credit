@@ -22,33 +22,34 @@ class Loan {
 
   static viewLoans(req, res) {
     const { status, repaid } = req.query;
-    const parsedRepaid = JSON.parse(repaid);
-    if (status === 'approved' && parsedRepaid == Boolean(false)) {
-      const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(false));
-      if (unpaidLoans.length >= 1) {
-        return res.status(200).json({
-          status: 200,
-          data: unpaidLoans,
+    if (status && repaid) {
+      const parsedRepaid = JSON.parse(repaid);
+      if (status === 'approved' && parsedRepaid === false) {
+        const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(false));
+        if (unpaidLoans.length >= 1) {
+          return res.status(200).json({
+            status: 200,
+            data: unpaidLoans,
+          });
+        }
+        return res.status(404).json({
+          status: 404,
+          error: 'They are no debtors',
+        });
+      } if (status === 'approved' && parsedRepaid == Boolean(true)) {
+        const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(true));
+        if (paidLoans.length >= 1) {
+          return res.status(200).json({
+            status: 200,
+            data: paidLoans,
+          });
+        }
+        return res.status(404).json({
+          status: 404,
+          error: 'No paid loan was found',
         });
       }
-      return res.status(404).json({
-        status: 404,
-        error: 'They are no debtors',
-      });
-    } if (status === 'approved' && parsedRepaid == Boolean(true)) {
-      const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(true));
-      if (paidLoans.length >= 1) {
-        return res.status(200).json({
-          status: 200,
-          data: paidLoans,
-        });
-      }
-      return res.status(404).json({
-        status: 404,
-        error: 'No paid loan was found',
-      });
-    }
-    return res.status(200).json({
+    } return res.status(200).json({
       status: 200,
       data: loan,
     });
@@ -118,12 +119,8 @@ class Loan {
     const { status } = req.body;
     const loanApplication = loan.find(user => user.id === Number(id) && user.status === 'pending');
 
-    // const index = loan.indexOf('loanApplication');
     if (loanApplication) {
       loan.find(user => user.id === Number(id) && user.status === 'pending').status = status;
-
-      // loanApplication.status = status;
-      // loan.splice(index, 1, loanApplication);
       return res.status(200).json({
         status: 200,
         message: `Loan ${status}`,

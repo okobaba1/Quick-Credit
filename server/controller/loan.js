@@ -1,6 +1,7 @@
 import moment from 'moment';
 import loan from '../dummyData/loans';
 import dummyData from '../dummyData/auth';
+import loans from '../dummyData/loans';
 
 class Loan {
   static specific(req, res) {
@@ -22,32 +23,41 @@ class Loan {
 
   static viewLoans(req, res) {
     const { status, repaid } = req.query;
-    const parsedRepaid = JSON.parse(repaid);
-    if (status === 'approved' && parsedRepaid == Boolean(false)) {
-      const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(false));
-      if (unpaidLoans.length >= 1) {
-        return res.status(200).json({
-          status: 200,
-          data: unpaidLoans,
+    if (status && repaid) {
+      const parsedRepaid = JSON.parse(repaid);
+      if (status === 'approved' && parsedRepaid === false) {
+        const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(false));
+        if (unpaidLoans.length >= 1) {
+          return res.status(200).json({
+            status: 200,
+            data: unpaidLoans,
+          });
+        }
+        return res.status(404).json({
+          status: 404,
+          error: 'They are no debtors',
+        });
+      } if (status === 'approved' && parsedRepaid == Boolean(true)) {
+        const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(true));
+        if (paidLoans.length >= 1) {
+          return res.status(200).json({
+            status: 200,
+            data: paidLoans,
+          });
+        }
+        return res.status(404).json({
+          status: 404,
+          error: 'No paid loan was found',
         });
       }
-      return res.status(404).json({
-        status: 404,
-        error: 'They are no debtors',
-      });
-    } if (status === 'approved' && parsedRepaid == Boolean(true)) {
-      const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(true));
-      if (paidLoans.length >= 1) {
-        return res.status(200).json({
-          status: 200,
-          data: paidLoans,
-        });
-      }
-      return res.status(404).json({
-        status: 404,
-        error: 'No paid loan was found',
-      });
-    }
+    } return res.status(200).json({
+      status: 200,
+      data: loans,
+    });
+  }
+
+
+  static allLoans(req, res) {
     return res.status(200).json({
       status: 200,
       data: loan,

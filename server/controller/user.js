@@ -64,7 +64,6 @@ class User {
         const token = jwt.sign({
           email,
           id: userDummyData.length,
-          userType: 2,
         }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
         const { firstName } = existingUser[0];
         const { lastName } = existingUser[0];

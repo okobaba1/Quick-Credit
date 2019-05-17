@@ -10,9 +10,9 @@ class User {
       lastName,
       password,
       address,
-      status,
     } = req.body;
     let userData = {};
+
     const existingUser = userDummyData.filter(user => user.email === email);
     // check if user exists
     if (existingUser.length) {
@@ -21,19 +21,19 @@ class User {
         error: 'User already exists',
       });
     }
+
     // Confirm for empty requests
     if (email.length && firstName.length
        && lastName.length && password.length
-        && address.length && status.length) {
+        && address.length) {
       userData = {
-        email, firstName, lastName, password, address, status, isAdmin: false,
+        id: userDummyData.length, email, firstName, lastName, password, address, status: 'unverified', isAdmin: false,
       };
       userDummyData.push(userData); // copy/add to dummy data
       const token = jwt.sign({
         email,
-        id: userDummyData.length,
-        userType: 1,
-      }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
+        id: userData.id,
+      }, process.env.SECRET_KEY, { expiresIn: '24hrs' });
 
       return res.status(201).json({
         status: 'Success',
@@ -96,19 +96,17 @@ class User {
     const { email } = req.params;
     const userToUpdate = userDummyData.filter(user => user.email === email);
     if (userToUpdate[0].status === 'unverified') {
-      userToUpdate[0].status = 'verified';
-      const {
-        status, firstName, lastName, address, password,
-      } = userToUpdate[0];
+      userDummyData.find(user => user.email === email).status = 'verified';
+
       return res.status(200).json({
         status: 200,
         data: {
           email,
-          firstName,
-          lastName,
-          password,
-          address,
-          status,
+          firstName: userToUpdate[0].firstName,
+          lastName: userToUpdate[0].lastName,
+          password: userToUpdate[0].password,
+          address: userToUpdate[0].address,
+          status: 'verified',
         },
       });
     } return res.status(401).json({
@@ -116,5 +114,22 @@ class User {
       error: 'User is already verified',
     });
   }
+
+  static superAdmin(req, res) {
+    const { id } = req.params;
+    const userToAdmin = userDummyData.filter(user => user.isAdmin === false && user.id === Number(id));
+    if (userToAdmin.length >= 1) {
+      userDummyData.find(user => user.id === Number(id)).status = 'verified';
+      return res.status(201).json({
+        status: 201,
+        message: 'Admin created succesfully',
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      error: 'User not found',
+    });
+  }
 }
+
 export default User;

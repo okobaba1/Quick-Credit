@@ -59,10 +59,7 @@ describe('Loans tests', () => {
       });
   });
   it('should bring all unpaid loans ', (done) => {
-    const loan = {
-      status: 'approved',
-      repaid: false,
-    };
+    const loan = {};
     chai.request(app)
       .get('/api/v1/loans?status=approved&repaid=false')
       .send(loan)
@@ -74,17 +71,14 @@ describe('Loans tests', () => {
       });
   });
   it('should bring all paid loans ', (done) => {
-    const loan = {
-      status: 'approved',
-      repaid: true,
-    };
+    const loan = {};
     chai.request(app)
       .get('/api/v1/loans?status=approved&repaid=true')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(404);
         expect(res.body).be.an('object');
-        expect(res.body.data).be.a('array');
+        assert.equal(res.body.error, 'No paid loan was found');
         done();
       });
   });
@@ -119,7 +113,7 @@ describe('Loans tests', () => {
       .get('/api/v1/loans/30/repayments')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(404);
         expect(res.body).be.an('object');
         done();
       });
@@ -144,7 +138,7 @@ describe('Loans tests', () => {
       .end((err, res) => {
         res.should.have.status(404);
         expect(res.body).be.an('object');
-        assert.equal(res.body.error, 'User not found');
+        assert.equal(res.body.error, 'Loan not found');
         done();
       });
   });

@@ -19,35 +19,35 @@ class Loan {
     });
   }
 
-  static unpaid(req, res) {
-    const unpaidLoans = loan.filter(user => user.repaid === false);
-    if (unpaidLoans.length >= 1) {
-      return res.status(200).json({
-        status: 200,
-        data: unpaidLoans,
+
+  static viewLoans(req, res) {
+    const { status, repaid } = req.query;
+    const parsedRepaid = JSON.parse(repaid);
+    if (status === 'approved' && parsedRepaid == Boolean(false)) {
+      const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(false));
+      if (unpaidLoans.length >= 1) {
+        return res.status(200).json({
+          status: 200,
+          data: unpaidLoans,
+        });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: 'They are no debtors',
+      });
+    } if (status === 'approved' && parsedRepaid == Boolean(true)) {
+      const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(true));
+      if (paidLoans.length >= 1) {
+        return res.status(200).json({
+          status: 200,
+          data: paidLoans,
+        });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: 'No paid loan was found',
       });
     }
-    return res.status(404).json({
-      status: 404,
-      error: 'They are no debtors',
-    });
-  }
-
-  static paid(req, res) {
-    const paidLoans = loan.filter(user => user.repaid === true);
-    if (paidLoans.length >= 1) {
-      return res.status(200).json({
-        status: 200,
-        data: paidLoans,
-      });
-    }
-    return res.status(404).json({
-      status: 404,
-      error: 'No paid loan was found',
-    });
-  }
-
-  static allLoans(req, res) {
     return res.status(200).json({
       status: 200,
       data: loan,
@@ -69,9 +69,9 @@ class Loan {
         },
       });
     }
-    return res.status(401).json({
-      status: 401,
-      error: 'You still owe some money',
+    return res.status(404).json({
+      status: 404,
+      error: 'Not a Loan Application',
     });
   }
 
@@ -118,19 +118,21 @@ class Loan {
     const { status } = req.body;
     const loanApplication = loan.find(user => user.id === Number(id) && user.status === 'pending');
 
-    const index = loan.indexOf('loanApplication');
+    // const index = loan.indexOf('loanApplication');
     if (loanApplication) {
-      loanApplication.status = status;
-      loan.splice(index, 1, loanApplication);
+      loan.find(user => user.id === Number(id) && user.status === 'pending').status = status;
+
+      // loanApplication.status = status;
+      // loan.splice(index, 1, loanApplication);
       return res.status(200).json({
         status: 200,
-        message: `loan ${status}`,
+        message: `Loan ${status}`,
         data: loanApplication,
       });
     }
     return res.status(404).json({
       status: 404,
-      error: 'User not found',
+      error: 'Loan not found',
     });
   }
 
@@ -138,7 +140,6 @@ class Loan {
     const { id } = req.params;
     const findLoan = loan.filter(user => user.id === Number(id));
     if (findLoan.length === 1) {
-      // console.log(findLoan);
       const foundLoan = findLoan[0];
       return res.status(201).json({
         status: 201,
@@ -152,7 +153,6 @@ class Loan {
         },
       });
     }
-    console.log(findLoan);
     return res.status(404).json({
       status: 404,
       error: 'No loans found',

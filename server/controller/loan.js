@@ -56,14 +56,6 @@ class Loan {
     });
   }
 
-
-  static allLoans(req, res) {
-    return res.status(200).json({
-      status: 200,
-      data: loan,
-    });
-  }
-
   static loanRepayment(req, res) {
     const { id } = req.params;
     const repayArray = loan.filter(user => user.id === Number(id));

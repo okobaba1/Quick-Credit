@@ -12,7 +12,6 @@ router.post('/auth/signin', User.login);
 router.patch('/users/:email/verify', User.verifyUSer);
 router.get('/loans/:id', Loan.specific);
 router.get('/loans', Loan.viewLoans);
-router.get('/loan', Loan.allLoans);
 router.get('/loans/:id/repayments', Loan.loanRepayment);
 router.post('/loans', Loan.loanApply);
 router.patch('/loans/:id', Loan.Approveloan);

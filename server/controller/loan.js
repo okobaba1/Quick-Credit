@@ -1,7 +1,6 @@
 import moment from 'moment';
 import loan from '../dummyData/loans';
 import dummyData from '../dummyData/auth';
-import loans from '../dummyData/loans';
 
 class Loan {
   static specific(req, res) {
@@ -52,7 +51,7 @@ class Loan {
       }
     } return res.status(200).json({
       status: 200,
-      data: loans,
+      data: loan,
     });
   }
 
@@ -120,12 +119,8 @@ class Loan {
     const { status } = req.body;
     const loanApplication = loan.find(user => user.id === Number(id) && user.status === 'pending');
 
-    // const index = loan.indexOf('loanApplication');
     if (loanApplication) {
       loan.find(user => user.id === Number(id) && user.status === 'pending').status = status;
-
-      // loanApplication.status = status;
-      // loan.splice(index, 1, loanApplication);
       return res.status(200).json({
         status: 200,
         message: `Loan ${status}`,

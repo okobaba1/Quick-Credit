@@ -25,7 +25,7 @@ body {
     height: 100vh;
     width: 15%;
     position: relative;
-    z-index: 1;
+    /* z-index: 1; */
     top: 0px;
     left: 0;
     background-color: #dedfe7;
@@ -33,7 +33,6 @@ body {
 }
 div a{
     display: inline-block;
-    margin-left: 14px;
     padding-top: 20px;
 }
 .footer{
@@ -115,5 +114,32 @@ button{
 }
 
 @media (max-width: 600px) {
+    
+}
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    background-color: #555;
+    color: white;
+}
+@media (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .submit { width: 40%; }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+}
+@media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
     .submit { width: 40%; }
 }

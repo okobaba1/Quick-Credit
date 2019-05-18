@@ -51,24 +51,6 @@ describe('User', () => {
         done();
       });
   });
-  it('returns a bad request', (done) => {
-    const user = {
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-      address: '',
-      status: '',
-    };
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(400);
-        expect(res.body).be.an('object');
-        done();
-      });
-  });
 
   // User login tests
   it('User Login', (done) => {
@@ -100,10 +82,10 @@ describe('User', () => {
       .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
-        assert.equal(res.body.status, 404);
+        assert.equal(res.body.status, 401);
         assert.equal(res.body.error, 'email/password is incorrect');
         done();
       });
@@ -154,7 +136,7 @@ describe('User', () => {
   });
 
   it('Super Admin success', (done) => {
-    const user = {};
+    const user = { id: 2 };
     chai.request(app)
       .patch('/api/v1/admin/2')
       .send(user)

@@ -1,5 +1,4 @@
 import { check, validationResult } from 'express-validator/check';
-import { runInNewContext } from 'vm';
 
 const validator = [
   check('firstName').not().isEmpty().withMessage('First name field cannot be empty.'),
@@ -28,5 +27,6 @@ const valid = {
   validationHandler,
   validator,
 };
+
 
 export default valid;

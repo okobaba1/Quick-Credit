@@ -5,9 +5,9 @@ import dummyData from '../dummyData/auth';
 class Loan {
   static specific(req, res) {
     const { id } = req.params;
-    const existingLoan = loan.filter(user => user.id === Number(id));
-    if (existingLoan.length === 1) {
-      const data = existingLoan[0];
+    const existingLoan = loan.find(user => user.id === Number(id));
+    if (existingLoan) {
+      const data = existingLoan;
       return res.status(200).json({
         status: 200,
         data,
@@ -26,7 +26,7 @@ class Loan {
       const parsedRepaid = JSON.parse(repaid);
       if (status === 'approved' && parsedRepaid === false) {
         const unpaidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(false));
-        if (unpaidLoans.length >= 1) {
+        if (unpaidLoans) {
           return res.status(200).json({
             status: 200,
             data: unpaidLoans,
@@ -36,9 +36,9 @@ class Loan {
           status: 404,
           error: 'They are no debtors',
         });
-      } if (status === 'approved' && parsedRepaid == Boolean(true)) {
+      } if (status === 'approved' && parsedRepaid === Boolean(true)) {
         const paidLoans = loan.filter(user => user.status === 'approved' && user.repaid === Boolean(true));
-        if (paidLoans.length >= 1) {
+        if (paidLoans) {
           return res.status(200).json({
             status: 200,
             data: paidLoans,
@@ -57,16 +57,15 @@ class Loan {
 
   static loanRepayment(req, res) {
     const { id } = req.params;
-    const repayArray = loan.filter(user => user.id === Number(id));
-    if (repayArray.length === 1) {
-      const repay = repayArray[0];
+    const repayArray = loan.find(user => user.id === Number(id));
+    if (repayArray) {
       return res.status(200).json({
         status: 200,
         data: {
-          id: repay.id,
-          createdOn: repay.createdOn,
-          monthlyInstallment: repay.paymentInstallment,
-          amount: repay.amount,
+          id,
+          createdOn: repayArray.createdOn,
+          monthlyInstallment: repayArray.paymentInstallment,
+          amount: repayArray.amount,
         },
       });
     }
@@ -79,40 +78,41 @@ class Loan {
   static loanApply(req, res) {
     const { email, amount, tenor } = req.body;
     const checkStatus = dummyData.filter(user => user.status === 'verified' && user.email === email);
-    if (checkStatus.length === 1) {
-      // check if user owes money
-      const checkDebt = loan.filter(user => user.email === email && user.balance === 0);
-      if (checkDebt.length === 1 && tenor <= 12) {
-        const interest = (0.05 * Number(amount));
-        const data = {
-          id: loan.length,
-          firstName: dummyData.firstName,
-          lastName: dummyData.lastName,
-          email,
-          tenor,
-          amount,
-          interest,
-          paymentInstallment: parseFloat((amount + interest) / tenor, 10),
-          status: 'pending',
-          balance: amount,
-          createdOn: moment().toDate(),
-        };
-        loan.push(data);
-        return res.status(201).json({
-          status: 201,
-          data,
-        });
-      }
+    if (!checkStatus) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Account status is not verified yet, try again later',
+      });
+    }
+    // check if user owes money
+    const checkDebt = loan.filter(user => user.user === email && user.balance > 0);
+    if (checkDebt) {
       return res.status(401).json({
         status: 401,
         error: 'Pay up your debt',
       });
     }
-    return res.status(404).json({
-      status: 404,
-      error: 'Account status is not verified yet, try again later',
+    const interest = (0.05 * Number(amount));
+    const data = {
+      id: loan.length,
+      firstName: dummyData.firstName,
+      lastName: dummyData.lastName,
+      email,
+      tenor,
+      amount,
+      interest,
+      paymentInstallment: parseFloat((amount + interest) / tenor, 100),
+      status: 'pending',
+      balance: amount,
+      createdOn: moment().toDate(),
+    };
+    loan.push(data);
+    return res.status(201).json({
+      status: 201,
+      data,
     });
   }
+
 
   static Approveloan(req, res) {
     const { id } = req.params;
@@ -124,7 +124,15 @@ class Loan {
       return res.status(200).json({
         status: 200,
         message: `Loan ${status}`,
-        data: loanApplication,
+        data: {
+          loanId: id,
+          LoanAmount: loanApplication.amount,
+          tenor: loanApplication.status,
+          status,
+          monthlyInstallment: loanApplication.paymentInstallment,
+          interest: loanApplication.interest,
+
+        },
       });
     }
     return res.status(404).json({
@@ -135,18 +143,17 @@ class Loan {
 
   static repaymentRecord(req, res) {
     const { id } = req.params;
-    const findLoan = loan.filter(user => user.id === Number(id));
-    if (findLoan.length === 1) {
-      const foundLoan = findLoan[0];
+    const findLoan = loan.find(user => user.id === Number(id));
+    if (findLoan) {
       return res.status(201).json({
         status: 201,
         data: {
           loanId: id,
-          createdOn: foundLoan.createdOn,
-          amount: foundLoan.amount,
-          monthlyInstallment: foundLoan.paymentInstallment,
-          paidAmount: (foundLoan.amount - foundLoan.balance),
-          balance: foundLoan.balance,
+          createdOn: findLoan.createdOn,
+          amount: findLoan.amount,
+          monthlyInstallment: findLoan.paymentInstallment,
+          paidAmount: (findLoan.amount - findLoan.balance),
+          balance: findLoan.balance,
         },
       });
     }

@@ -76,9 +76,8 @@ describe('Loans tests', () => {
       .get('/api/v1/loans?status=approved&repaid=true')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(200);
         expect(res.body).be.an('object');
-        assert.equal(res.body.error, 'No paid loan was found');
         done();
       });
   });
@@ -130,7 +129,7 @@ describe('Loans tests', () => {
       });
   });
 
-  it('User not found  ', (done) => {
+  it('Loan not found  ', (done) => {
     const loan = { status: 'rejected' };
     chai.request(app)
       .patch('/api/v1/loans/1')
@@ -156,9 +155,9 @@ describe('Loans tests', () => {
   });
 
   it('record  ', (done) => {
-    const loan = { id: 1 };
+    const loan = {};
     chai.request(app)
-      .post('/api/v1/loans/4/repayment')
+      .post('/api/v1/loans/93/repayment')
       .send(loan)
       .end((err, res) => {
         res.should.have.status(404);

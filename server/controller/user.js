@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
 import userDummyData from '../dummyData/auth';
 
@@ -27,7 +26,7 @@ class User {
        && lastName && password
         && address) {
       userData = {
-        id: userDummyData.length, email, firstName, lastName, password, address, status: 'unverified', isAdmin: false,
+        id: userDummyData.length + 1, email, firstName, lastName, password, address, status: 'unverified', isAdmin: false,
       };
       userDummyData.push(userData); // copy/add to dummy data
       const token = jwt.sign({
@@ -61,13 +60,15 @@ class User {
         && user.password === password);
       if (existingUser.length === 1) {
         // generate token
-        const token = jwt.sign({
-          email,
-          id: userDummyData.length,
-        }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
         const { firstName } = existingUser[0];
         const { lastName } = existingUser[0];
         const { id } = existingUser[0];
+        const { isAdmin } = existingUser[0];
+        const token = jwt.sign({
+          email,
+          id,
+          isAdmin,
+        }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
         return res.status(200).json({
           status: 200,
           data: {

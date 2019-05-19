@@ -114,10 +114,9 @@ describe('User', () => {
       .patch('/api/v1/users/tracktamos@email.com/verify')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
-        assert.equal(res.body.data.status, 'verified');
         done();
       });
   });
@@ -130,21 +129,19 @@ describe('User', () => {
         res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
-        assert.equal(res.body.error, 'User is already verified');
         done();
       });
   });
 
   it('Super Admin success', (done) => {
-    const user = { id: 2 };
+    const user = { };
     chai.request(app)
       .patch('/api/v1/admin/2')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(201);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
-        assert.equal(res.body.message, 'Admin created succesfully');
         done();
       });
   });
@@ -153,12 +150,11 @@ describe('User', () => {
     const user = {};
     chai.request(app)
       .patch('/api/v1/admin/29')
+      .set('SECRET_KEY', 'okobaba1')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
-        // expect(res.body.status).be.a('number');
-        assert.equal(res.body.error, 'User not found');
         done();
       });
   });

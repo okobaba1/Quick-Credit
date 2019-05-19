@@ -77,6 +77,12 @@ class Loan {
 
   static loanApply(req, res) {
     const { email, amount, tenor } = req.body;
+    if (tenor < 1 || tenor > 12) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Tenor should be from 1 to 12',
+      });
+    }
     const checkStatus = dummyData.filter(user => user.status === 'verified' && user.email === email);
     if (!checkStatus) {
       return res.status(404).json({
@@ -85,7 +91,7 @@ class Loan {
       });
     }
     // check if user owes money
-    const checkDebt = loan.filter(user => user.user === email && user.balance > 0);
+    const checkDebt = loan.find(user => user.user === email && user.balance > 0);
     if (checkDebt) {
       return res.status(401).json({
         status: 401,
@@ -94,16 +100,16 @@ class Loan {
     }
     const interest = (0.05 * Number(amount));
     const data = {
-      id: loan.length,
+      id: loan.length + 1,
       firstName: dummyData.firstName,
       lastName: dummyData.lastName,
       email,
       tenor,
       amount,
       interest,
-      paymentInstallment: parseFloat((amount + interest) / tenor, 100),
+      paymentInstallment: ((amount + interest) / tenor).toFixed(2),
       status: 'pending',
-      balance: amount,
+      balance: 0,
       createdOn: moment().toDate(),
     };
     loan.push(data);

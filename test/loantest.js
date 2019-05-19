@@ -27,10 +27,9 @@ describe('Loans tests', () => {
       .get('/api/v1/loans/1')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
-        expect(res.body.data).be.an('object');
         done();
       });
   });
@@ -51,10 +50,8 @@ describe('Loans tests', () => {
       .get('/api/v1/loans/133')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
-        expect(res.body.error).be.a('string');
-        assert.equal(res.body.error, 'Not a loan application');
         done();
       });
   });
@@ -64,9 +61,8 @@ describe('Loans tests', () => {
       .get('/api/v1/loans?status=approved&repaid=false')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
-        expect(res.body.data).be.a('array');
         done();
       });
   });
@@ -76,7 +72,7 @@ describe('Loans tests', () => {
       .get('/api/v1/loans?status=approved&repaid=true')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         done();
       });
@@ -123,7 +119,7 @@ describe('Loans tests', () => {
       .patch('/api/v1/loans/2')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         done();
       });
@@ -135,9 +131,8 @@ describe('Loans tests', () => {
       .patch('/api/v1/loans/1')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
-        assert.equal(res.body.error, 'Loan not found');
         done();
       });
   });
@@ -148,7 +143,7 @@ describe('Loans tests', () => {
       .post('/api/v1/loans/1/repayment')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(201);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         done();
       });
@@ -160,9 +155,13 @@ describe('Loans tests', () => {
       .post('/api/v1/loans/93/repayment')
       .send(loan)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(401);
         expect(res.body).be.an('object');
         done();
       });
+  });
+  it('App should exists', () => {
+    chai.request(app);
+    expect(app).to.be.a('function');
   });
 });

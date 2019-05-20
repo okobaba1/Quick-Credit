@@ -24,25 +24,13 @@ describe('Loans tests', () => {
       });
   });
   it('should bring specific loan ', (done) => {
-    const loan = {
-      id: 1,
-      user: 'abcd@gmail.com',
-      created: '24/07',
-      status: 'approved',
-      repaid: false,
-      tenor: 28000,
-      amount: 168000,
-      paymentInstallment: 7362,
-      balance: 62733,
-      interest: 5262,
-    };
     chai.request(app)
       .get('/api/v1/loans/133')
       .set('x-access-token', token1)
-      .send(loan)
       .end((err, res) => {
         res.should.have.status(404);
         expect(res.body).be.an('object');
+        assert.equal(res.body.error, 'Not a loan application');
         done();
       });
   });
@@ -150,6 +138,40 @@ describe('Loans tests', () => {
       .send(loan)
       .end((err, res) => {
         res.should.have.status(404);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
+
+  it('Apply loan  ', (done) => {
+    const loan = {
+      email: 'okobaba@email.com',
+      amount: 5000,
+      tenor: 12,
+    };
+    chai.request(app)
+      .post('/api/v1/loans')
+      .set('x-access-token', token1)
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(201);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
+
+  it('Apply loan  ', (done) => {
+    const loan = {
+      email: 'okobaba@email.com',
+      amount: 5000,
+      tenor: 16,
+    };
+    chai.request(app)
+      .post('/api/v1/loans')
+      .set('x-access-token', token1)
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(400);
         expect(res.body).be.an('object');
         done();
       });

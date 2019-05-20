@@ -133,16 +133,15 @@ describe('User', () => {
         res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
+        assert.equal(res.body.error, 'User is already verified');
         done();
       });
   });
 
   it('Super Admin success', (done) => {
-    const user = { };
     chai.request(app)
       .patch('/api/v1/admin/2')
       .set('x-access-token', token1)
-      .send(user)
       .end((err, res) => {
         res.should.have.status(401);
         expect(res.body).be.an('object');

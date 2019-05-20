@@ -23,6 +23,18 @@ const auth = [
     isAdmin: false,
 
   },
+  {
+    id: 3,
+    email: 'okobaba@email.com',
+    firstName: 'Amos',
+    lastName: 'Darlington',
+    password: 'bkdnn123',
+    address: 'basket road,iyana ipaja',
+    status: 'verified', // unverified or verified
+    isAdmin: false,
+
+
+  },
 
 ];
 export default auth;

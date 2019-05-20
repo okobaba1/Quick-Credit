@@ -68,7 +68,7 @@ class User {
           email,
           id,
           isAdmin,
-        }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
+        }, process.env.SECRET_KEY, { expiresIn: '172hrs' });
         return res.status(200).json({
           status: 200,
           data: {

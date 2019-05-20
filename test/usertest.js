@@ -10,6 +10,8 @@ should();
 
 // users sign up tests
 describe('User', () => {
+  const token1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb3NAZW1haWwuY29tIiwiaWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTU1ODM4NjQ5OSwiZXhwIjoxNTU5MDA1Njk5fQ.27dhMetylbPDmbzyqbmnvvMdv6UfIg36R32ckFAZP-M';
+  const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyYWNrdGFtb3NAZW1haWwuY29tIiwiaWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NTgzODcwNDEsImV4cCI6MTU1OTAwNjI0MX0.3X_Ua6w11xR4ziv3gR9e1mAbtY0C_l2d9Y7MD5Eu9ws';
   it('should sign up a user', (done) => {
     const user = {
       email: 'victor@gmail.com',
@@ -112,9 +114,10 @@ describe('User', () => {
     const user = {};
     chai.request(app)
       .patch('/api/v1/users/tracktamos@email.com/verify')
+      .set('x-access-token', token1)
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(200);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
         done();
@@ -124,20 +127,21 @@ describe('User', () => {
     const user = {};
     chai.request(app)
       .patch('/api/v1/users/amos@email.com/verify')
+      .set('x-access-token', token1)
       .send(user)
       .end((err, res) => {
         res.should.have.status(401);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
+        assert.equal(res.body.error, 'User is already verified');
         done();
       });
   });
 
   it('Super Admin success', (done) => {
-    const user = { };
     chai.request(app)
       .patch('/api/v1/admin/2')
-      .send(user)
+      .set('x-access-token', token1)
       .end((err, res) => {
         res.should.have.status(401);
         expect(res.body).be.an('object');
@@ -150,7 +154,7 @@ describe('User', () => {
     const user = {};
     chai.request(app)
       .patch('/api/v1/admin/29')
-      .set('SECRET_KEY', 'okobaba1')
+      .set('x-access-token', token1)
       .send(user)
       .end((err, res) => {
         res.should.have.status(401);

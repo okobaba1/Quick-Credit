@@ -19,7 +19,7 @@ const createRepayment = `
   VALUES('${Date()}', 1, 7000)`;
 
 const queries = `${dropTables}${createTables}${createAdmin}${createUser}${createLoans}${createRepayment}`;
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = new Pool({ connectionString: process.env.DATABASE });
 
 pool.on('connect', () => {
   console.log('connected to the db');

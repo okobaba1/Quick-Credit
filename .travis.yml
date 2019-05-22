@@ -1,13 +1,12 @@
 language: node_js
 
 services:
-  -'postgres'
+  - postgres
 node_js: 
   - "stable"
 
 install: 
   - npm install
-
 
 script:
   - npm run test

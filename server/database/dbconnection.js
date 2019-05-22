@@ -3,20 +3,39 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+const {
+  DB_USER, DB_PASSWORD, DB_NAME, DB_PORT, DB_TEST,
+} = process.env;
+let connection;
 
-export default {
-  query(text, params) {
-    return new Promise((resolve, reject) => {
-      pool.query(text, params)
-        .then((res) => {
-          resolve(res);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
-  },
+const devConfig = {
+  user: DB_USER,
+  database: DB_NAME,
+  password: DB_PASSWORD,
+  port: DB_PORT,
+  max: 10,
+  idleTimeoutMillis: 3000,
 };
+
+const testConfig = {
+  user: DB_USER,
+  database: DB_TEST,
+  password: DB_PASSWORD,
+  port: DB_PORT,
+  max: 10,
+  idleTimeoutMillis: 3000,
+};
+if (process.env.NODE_ENV === 'production') {
+  connection = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  };
+} else if (process.env.NODE_ENV === 'test') {
+  connection = testConfig;
+} else {
+  connection = devConfig;
+}
+
+const dbconnection = new Pool(connection);
+
+export default dbconnection;

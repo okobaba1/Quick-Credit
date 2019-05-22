@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/auth/signup', validator, validationHandler, Users.create);
 router.post('/auth/signin', Users.login);
-// router.patch('/users/:email/verify', verifyAdmin, Users.verifyUSer);
+router.patch('/users/:email/verify', verifyAdmin, Users.verify);
 // router.get('/loans/:id', verifyAdmin, Loan.specific);
 // router.get('/loans', verifyAdmin, Loan.viewLoans);
 // router.get('/loans/:id/repayments', Loan.loanRepayment);

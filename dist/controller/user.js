@@ -1,30 +1,28 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
 
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _auth = _interopRequireDefault(require("../dummyData/auth"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var User =
 /*#__PURE__*/
 function () {
   function User() {
-    _classCallCheck(this, User);
+    (0, _classCallCheck2["default"])(this, User);
   }
 
-  _createClass(User, null, [{
+  (0, _createClass2["default"])(User, null, [{
     key: "createUser",
     value: function createUser(req, res) {
       var _req$body = req.body,
@@ -32,8 +30,7 @@ function () {
           firstName = _req$body.firstName,
           lastName = _req$body.lastName,
           password = _req$body.password,
-          address = _req$body.address,
-          status = _req$body.status;
+          address = _req$body.address;
       var userData = {};
 
       var existingUser = _auth["default"].filter(function (user) {
@@ -49,15 +46,16 @@ function () {
       } // Confirm for empty requests
 
 
-      if (email.length && firstName.length && lastName.length && password.length && address.length && status.length) {
+      if (email && firstName && lastName && password && address) {
         userData = {
+          id: _auth["default"].length + 1,
           email: email,
           firstName: firstName,
           lastName: lastName,
           password: password,
           address: address,
-          status: status,
-          userType: 1
+          status: 'unverified',
+          isAdmin: false
         };
 
         _auth["default"].push(userData); // copy/add to dummy data
@@ -65,10 +63,9 @@ function () {
 
         var token = _jsonwebtoken["default"].sign({
           email: email,
-          id: _auth["default"].length,
-          userType: 1
+          id: userData.id
         }, process.env.SECRET_KEY, {
-          expiresIn: '72hrs'
+          expiresIn: '24hrs'
         });
 
         return res.status(201).json({
@@ -85,7 +82,7 @@ function () {
 
       return res.status(400).json({
         status: 'Fail',
-        message: 'All fields are required'
+        error: 'All fields are required'
       });
     }
   }, {
@@ -95,7 +92,7 @@ function () {
           email = _req$body2.email,
           password = _req$body2.password; // confirm for empty input
 
-      if (email.length && password.length) {
+      if (email && password) {
         // check if email is in already signed up
         var existingUser = _auth["default"].filter(function (user) {
           return user.email === email && user.password === password;
@@ -103,17 +100,19 @@ function () {
 
         if (existingUser.length === 1) {
           // generate token
-          var token = _jsonwebtoken["default"].sign({
-            email: email,
-            id: _auth["default"].length,
-            userType: 2
-          }, process.env.SECRET_KEY, {
-            expiresIn: '72hrs'
-          });
-
           var firstName = existingUser[0].firstName;
           var lastName = existingUser[0].lastName;
           var id = existingUser[0].id;
+          var isAdmin = existingUser[0].isAdmin;
+
+          var token = _jsonwebtoken["default"].sign({
+            email: email,
+            id: id,
+            isAdmin: isAdmin
+          }, process.env.SECRET_KEY, {
+            expiresIn: '172hrs'
+          });
+
           return res.status(200).json({
             status: 200,
             data: {
@@ -127,15 +126,15 @@ function () {
           });
         }
 
-        return res.status(404).json({
-          status: 404,
+        return res.status(401).json({
+          status: 401,
           error: 'email/password is incorrect'
         });
       }
 
       return res.status(400).json({
         status: 400,
-        message: 'kindly put in your email and password'
+        error: 'kindly put in your email and password'
       });
     }
   }, {
@@ -148,20 +147,18 @@ function () {
       });
 
       if (userToUpdate[0].status === 'unverified') {
-        userToUpdate[0].status = 'verified';
-        var _userToUpdate$ = userToUpdate[0],
-            status = _userToUpdate$.status,
-            firstName = _userToUpdate$.firstName,
-            lastName = _userToUpdate$.lastName,
-            address = _userToUpdate$.address;
+        _auth["default"].find(function (user) {
+          return user.email === email;
+        }).status = 'verified';
         return res.status(200).json({
           status: 200,
           data: {
             email: email,
-            firstName: firstName,
-            lastName: lastName,
-            address: address,
-            status: status
+            firstName: userToUpdate[0].firstName,
+            lastName: userToUpdate[0].lastName,
+            password: userToUpdate[0].password,
+            address: userToUpdate[0].address,
+            status: 'verified'
           }
         });
       }
@@ -171,8 +168,31 @@ function () {
         error: 'User is already verified'
       });
     }
-  }]);
+  }, {
+    key: "superAdmin",
+    value: function superAdmin(req, res) {
+      var id = req.params.id;
 
+      var userToAdmin = _auth["default"].find(function (user) {
+        return user.isAdmin === false && user.id === Number(id);
+      });
+
+      if (userToAdmin) {
+        _auth["default"].find(function (user) {
+          return user.id === Number(id);
+        }).status = 'verified';
+        return res.status(201).json({
+          status: 201,
+          message: 'Admin created succesfully'
+        });
+      }
+
+      return res.status(404).json({
+        status: 404,
+        error: 'User not found'
+      });
+    }
+  }]);
   return User;
 }();
 

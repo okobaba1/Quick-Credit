@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import moment from 'moment';
 // import uuid from 'uuid';
 import bcrypt from 'bcrypt';
+import { verify } from 'crypto';
 import db from '../database/dbconnection';
 
 const Users = {
@@ -100,6 +101,50 @@ const Users = {
             email: rows[0].email,
           },
         });
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: `Internal server error ${error.message}`,
+      });
+    }
+  },
+
+  async verify(req, res) {
+    const { email } = req.params;
+    const checkUser = {
+      text: 'SELECT * FROM users WHERE email = $1',
+      values: [email],
+    };
+    try {
+      const { rows } = await db.query(checkUser);
+      if (!rows[0]) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Not a registered email',
+        });
+      }
+      if (rows[0].status === 'verified') {
+        return res.status(401).json({
+          status: 401,
+          error: 'User is already verified',
+        });
+      }
+      const update = {
+        text: "UPDATE users SET status = 'verified' WHERE email = $1 RETURNING *",
+        values: [email],
+      };
+      const { rows: rowsUpdate } = await db.query(update);
+      return res.status(201).json({
+        status: 201,
+        data: {
+          email,
+          firstName: rowsUpdate[0].firstName,
+          lastName: rowsUpdate[0].lastName,
+          password: rowsUpdate[0].password,
+          address: rowsUpdate[0].address,
+          status: rowsUpdate[0].status,
+        },
       });
     } catch (error) {
       return res.status(500).json({

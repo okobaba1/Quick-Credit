@@ -11,6 +11,7 @@ should();
 
 // users sign up tests
 describe('User', () => {
+  const token1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb3NAZW1haWwuY29tIiwiaWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTU1ODM4NjQ5OSwiZXhwIjoxNTU5MDA1Njk5fQ.27dhMetylbPDmbzyqbmnvvMdv6UfIg36R32ckFAZP-M';
   it('should sign up a user', (done) => {
     const user = {
       email: 'victor@gmail.com',
@@ -107,33 +108,48 @@ describe('User', () => {
       });
   });
 
-  //   it('Verify user', (done) => {
-  //     const user = {};
-  //     chai.request(app)
-  //       .patch('/api/v1/users/tracktamos@email.com/verify')
-  //       .set('x-access-token', token1)
-  //       .send(user)
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         expect(res.body).be.an('object');
-  //         expect(res.body.status).be.a('number');
-  //         done();
-  //       });
-  //   });
-  //   it('Verify user', (done) => {
-  //     const user = {};
-  //     chai.request(app)
-  //       .patch('/api/v1/users/amos@email.com/verify')
-  //       .set('x-access-token', token1)
-  //       .send(user)
-  //       .end((err, res) => {
-  //         res.should.have.status(401);
-  //         expect(res.body).be.an('object');
-  //         expect(res.body.status).be.a('number');
-  //         assert.equal(res.body.error, 'User is already verified');
-  //         done();
-  //       });
-  //   });
+  it('Verify user', (done) => {
+    const user = {};
+    chai.request(app)
+      .patch('/api/v1/users/victor@gmail.com/verify')
+      .set('x-access-token', token1)
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(201);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        done();
+      });
+  });
+  it('Verify user', (done) => {
+    const user = {};
+    chai.request(app)
+      .patch('/api/v1/users/amogshss@email.com/verify')
+      .set('x-access-token', token1)
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.error, 'Not a registered email');
+        done();
+      });
+  });
+
+  it('Verify user', (done) => {
+    const user = {};
+    chai.request(app)
+      .patch('/api/v1/users/victor@gmail.com/verify')
+      .set('x-access-token', token1)
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.error, 'User is already verified');
+        done();
+      });
+  });
 
   //   it('Super Admin success', (done) => {
   //     chai.request(app)

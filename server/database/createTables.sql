@@ -38,10 +38,3 @@ CREATE DATABASE Quickcredit;
   );
 
 
-
-
--- const createTables = `
---   ${createUsersTable}${createLoansTable}${createRepaymentsTable}
--- `;
-
-

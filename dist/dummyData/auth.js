@@ -14,8 +14,28 @@ var auth = [{
   status: 'verified',
   // unverified or verified
   isAdmin: true,
-  userType: 2 // admin is 2, user is 1
+  userType: 'super' // super admin
 
+}, {
+  id: 2,
+  email: 'tracktamos@email.com',
+  firstName: 'Amosbwllo',
+  lastName: 'Darling',
+  password: 'bkdnn12',
+  address: 'basket road,iyana ipaja',
+  status: 'unverified',
+  // unverified or verified
+  isAdmin: false
+}, {
+  id: 3,
+  email: 'okobaba@email.com',
+  firstName: 'Amos',
+  lastName: 'Darlington',
+  password: 'bkdnn123',
+  address: 'basket road,iyana ipaja',
+  status: 'verified',
+  // unverified or verified
+  isAdmin: false
 }];
 var _default = auth;
 exports["default"] = _default;

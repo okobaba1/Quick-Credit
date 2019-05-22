@@ -40,6 +40,36 @@ const Loans = {
       });
     }
   },
+
+  async viewLoans(req, res) {
+    const { status, repaid } = req.query;
+    console.log(status, repaid);
+    const checkUser = {
+      text: 'SELECT * FROM users WHERE status = $1 AND repaid = $2',
+      values: [status, repaid],
+    };
+    const getLoans = { text: 'SELECT * FROM loans' };
+    try {
+      const { rows } = await db.query(checkUser);
+      const { rows: allLoans } = await db.query(getLoans);
+
+      if (!status && !repaid) {
+        return res.status(200).json({
+          status: 200,
+          data: allLoans,
+        });
+      }
+      return res.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid request',
+      });
+    }
+  },
 };
 
 

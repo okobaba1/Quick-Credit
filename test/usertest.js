@@ -53,61 +53,59 @@ describe('User', () => {
       });
   });
 
-  //   // User login tests
-  //   it('User Login', (done) => {
-  //     const user = {
-  //       email: 'amos@email.com',
-  //       password: 'bkdnn123',
-  //     };
-  //     chai.request(app)
-  //       .post('/api/v1/auth/signin')
-  //       .send(user)
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         expect(res.body).be.an('object');
-  //         expect(res.body.status).be.a('number');
-  //         expect(res.body.data).be.an('object');
-  //         expect(res.body.data.firstName).be.a('string');
-  //         expect(res.body.data.lastName).be.a('string');
-  //         assert.equal(res.body.status, 200);
-  //         assert.equal(res.body.data.message, 'login successsful');
-  //         done();
-  //       });
-  //   });
-  //   it('Incorrect Username/Password', (done) => {
-  //     const user = {
-  //       email: 'ab@gmail.com',
-  //       password: '1234',
-  //     };
-  //     chai.request(app)
-  //       .post('/api/v1/auth/signin')
-  //       .send(user)
-  //       .end((err, res) => {
-  //         res.should.have.status(401);
-  //         expect(res.body).be.an('object');
-  //         expect(res.body.status).be.a('number');
-  //         assert.equal(res.body.status, 401);
-  //         assert.equal(res.body.error, 'email/password is incorrect');
-  //         done();
-  //       });
-  //   });
-  //   it('Empty email or password input', (done) => {
-  //     const user = {
-  //       email: '',
-  //       password: '',
-  //     };
-  //     chai.request(app)
-  //       .post('/api/v1/auth/signin')
-  //       .send(user)
-  //       .end((err, res) => {
-  //         res.should.have.status(400);
-  //         expect(res.body).be.an('object');
-  //         expect(res.body.status).be.a('number');
-  //         assert.equal(res.body.status, 400);
-  //         assert.equal(res.body.error, 'kindly put in your email and password');
-  //         done();
-  //       });
-  //   });
+  // User login tests
+  it('User Login', (done) => {
+    const user = {
+      email: 'victor@gmail.com',
+      password: '1234hdgdpds',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        expect(res.body.data).be.an('object');
+        assert.equal(res.body.status, 200);
+        assert.equal(res.body.message, 'login successsful');
+        done();
+      });
+  });
+  it('Not signed up', (done) => {
+    const user = {
+      email: 'ab@gmail.com',
+      password: '1234hsvsz',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(400);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.status, 400);
+        assert.equal(res.body.error, 'Please sign Up');
+        done();
+      });
+  });
+  it('Empty email or password input', (done) => {
+    const user = {
+      email: '',
+      password: '',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(400);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.status, 400);
+        assert.equal(res.body.error, 'kindly put in your email and password');
+        done();
+      });
+  });
 
   //   it('Verify user', (done) => {
   //     const user = {};

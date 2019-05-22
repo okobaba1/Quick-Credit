@@ -10,7 +10,7 @@ const { validator, validationHandler, applyForLoan } = valid;
 const router = express.Router();
 
 router.post('/auth/signup', validator, validationHandler, Users.create);
-// router.post('/auth/signin', Users.login);
+router.post('/auth/signin', Users.login);
 // router.patch('/users/:email/verify', verifyAdmin, Users.verifyUSer);
 // router.get('/loans/:id', verifyAdmin, Loan.specific);
 // router.get('/loans', verifyAdmin, Loan.viewLoans);

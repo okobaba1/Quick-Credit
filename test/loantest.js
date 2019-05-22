@@ -12,28 +12,28 @@ should();
 describe('Loans tests', () => {
   const token1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb3NAZW1haWwuY29tIiwiaWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTU1ODM4NjQ5OSwiZXhwIjoxNTU5MDA1Njk5fQ.27dhMetylbPDmbzyqbmnvvMdv6UfIg36R32ckFAZP-M';
   const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyYWNrdGFtb3NAZW1haWwuY29tIiwiaWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NTgzODcwNDEsImV4cCI6MTU1OTAwNjI0MX0.3X_Ua6w11xR4ziv3gR9e1mAbtY0C_l2d9Y7MD5Eu9ws';
-  // it('should bring specific loan ', (done) => {
-  //   chai.request(app)
-  //     .get('/api/v1/loans/1')
-  //     .set('x-access-token', token1)
-  //     .end((err, res) => {
-  //       res.should.have.status(200);
-  //       expect(res.body).be.an('object');
-  //       expect(res.body.status).be.a('number');
-  //       done();
-  //     });
-  // });
-  // it('should bring specific loan ', (done) => {
-  //   chai.request(app)
-  //     .get('/api/v1/loans/133')
-  //     .set('x-access-token', token1)
-  //     .end((err, res) => {
-  //       res.should.have.status(404);
-  //       expect(res.body).be.an('object');
-  //       assert.equal(res.body.error, 'Not a loan application');
-  //       done();
-  //     });
-  // });
+  it('should bring specific loan ', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/1')
+      .set('x-access-token', token1)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        done();
+      });
+  });
+  it('should bring specific loan ', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/133')
+      .set('x-access-token', token1)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        assert.equal(res.body.error, 'Not a loan application');
+        done();
+      });
+  });
   // it('should bring all unpaid loans ', (done) => {
   //   const loan = {};
   //   chai.request(app)

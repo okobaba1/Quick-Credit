@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import moment from 'moment';
 // import uuid from 'uuid';
 import bcrypt from 'bcrypt';
-import { verify } from 'crypto';
 import db from '../database/dbconnection';
 
 const Users = {

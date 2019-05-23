@@ -6,11 +6,11 @@
   "scripts": {
     "prestart": "babel server/ -d dist",
     "start": "node -- dist/app.js",
-    "start:dev": "nodemon server/app.js --exec babel-node",
+    "start:dev": "cross-env NODE_ENV=production nodemon server/app.js --exec babel-node",
     "test": "npm run testdb && cross-env NODE_ENV=test mocha --require @babel/register  --exit --timeout 20000",
     "coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
     "db": "psql -U user -f server/database/createTables.sql",
-    "testdb": "psql -U user -f server/database/createTablesTest.sql"
+    "testdb": "psql -U postgres -f server/database/createTablesTest.sql"
   },
   "repository": {
     "type": "git",

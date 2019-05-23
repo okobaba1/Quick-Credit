@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS Quickcredit;
 CREATE DATABASE Quickcredit;
 \c Quickcredit;
 
+  
   CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -38,5 +39,5 @@ CREATE DATABASE Quickcredit;
 
 
   INSERT INTO users(firstname, lastname, address, email, password, isadmin, status)  
-  VALUES('pappy', 'bear', 'Lagos', 'pappybear@gmail.com', 'password', 'true', 'verified');
+  VALUES('pappy', 'bear', 'Lagos', 'pappybear@gmail.com', 'password', true, 'verified');
 

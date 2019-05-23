@@ -10,6 +10,7 @@
     "test": "npm run testdb && cross-env NODE_ENV=test mocha --require @babel/register  --exit --timeout 20000",
     "coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
     "db": "psql -U user -f server/database/createTables.sql",
+    "heroku:db": "psql -U user -f -dist/database/createTables.sql",
     "testdb": "psql -U postgres -f server/database/createTablesTest.sql"
   },
   "repository": {
@@ -43,6 +44,7 @@
     "nyc": "^14.1.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "@babel/runtime": "^7.4.5",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",

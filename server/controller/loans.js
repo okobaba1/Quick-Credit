@@ -164,7 +164,6 @@ const Loans = {
       return res.status(500).json({
         status: 500,
         error: `Internal server error ${error.message}`,
-        console.log(error.message)
       });
     }
   },

@@ -12,26 +12,6 @@ should();
 describe('Loans tests', () => {
   const token1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb3NAZW1haWwuY29tIiwiaWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTU1ODM4NjQ5OSwiZXhwIjoxNTU5MDA1Njk5fQ.27dhMetylbPDmbzyqbmnvvMdv6UfIg36R32ckFAZP-M';
   const token2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyYWNrdGFtb3NAZW1haWwuY29tIiwiaWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NTgzODcwNDEsImV4cCI6MTU1OTAwNjI0MX0.3X_Ua6w11xR4ziv3gR9e1mAbtY0C_l2d9Y7MD5Eu9ws';
-  it('should sign up a user', (done) => {
-    const user = {
-      email: 'okobaba@gmail.com',
-      firstName: 'moke',
-      lastName: 'ilo',
-      password: '1234hdgdpds',
-      address: 'Lagos house',
-    };
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(201);
-        expect(res.body).be.an('object');
-        expect(res.body.status).be.a('number');
-        expect(res.body.data).be.an('object');
-        assert.equal(res.body.status, 201);
-        done();
-      });
-  });
   it('Apply loan  ', (done) => {
     const loan = {
       email: 'okobaba@gmail.com',

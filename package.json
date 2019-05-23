@@ -10,7 +10,7 @@
     "test": "npm run testdb && cross-env NODE_ENV=test mocha --require @babel/register  --exit --timeout 20000",
     "coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
     "db": "psql -U user -f server/database/createTables.sql",
-    "testdb": "psql -U quickcredit -f server/database/createTablesTest.sql"
+    "testdb": "psql -U quickcredit_testdb -f server/database/createTablesTest.sql"
   },
   "repository": {
     "type": "git",

@@ -37,4 +37,6 @@ CREATE DATABASE Quickcredit;
   );
 
 
+  INSERT INTO users(firstname, lastname, address, email, password, isadmin, status)  
+  VALUES('pappy', 'bear', 'Lagos', 'pappybear@gmail.com', 'password', 'true', 'verified');
 

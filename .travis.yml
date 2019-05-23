@@ -1,7 +1,7 @@
 language: node_js
 
 services:
-  - postgres
+  - postgresql
 node_js: 
   - "stable"
 

@@ -13,7 +13,6 @@ CREATE DATABASE Quickcredit;
     isadmin BOOLEAN DEFAULT false
   );
 
-
   DROP TYPE IF EXISTS loan_status;
   CREATE TYPE loan_status as ENUM ('pending', 'approved', 'rejected');
   CREATE TABLE IF NOT EXISTS loans(

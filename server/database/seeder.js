@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const createAdmin = `
-  INSERT INTO users(firstname, lastname, address, email, password, isadmin, status)  VALUES('Desmond', 'Edem', 'Sabo', 'meetdesmond.edem@gmail.com', 'hydwkw345', 'true', 'verified');`;
+  INSERT INTO users(firstname, lastname, address, email, password, isadmin, status)  VALUES('pappy', 'bear', 'Lagos', 'pappybear@gmail.com', 'password', 'true', 'verified');`;
 const createUser = `
   INSERT INTO users(firstname, lastname, address, email, password, isadmin, status)
   VALUES('Obito', 'Uchiha', 'ANBU HQ', 'uchiha.obito@akatsuki.org', 'wdnkndn123', 'false', 'unverified');`;

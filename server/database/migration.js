@@ -34,7 +34,7 @@ const Migration = {
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
         createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        status loan_status DEFAULT 'pending',
+        status DEFAULT 'pending',
         repaid BOOLEAN DEFAULT false,
         tenor INTEGER NOT NULL,
         amount FLOAT NOT NULL,

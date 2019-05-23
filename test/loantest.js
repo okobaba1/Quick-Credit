@@ -87,6 +87,31 @@ describe('Loans tests', () => {
         done();
       });
   });
+  it('Approve or reject loan  ', (done) => {
+    const loan = { status: 'rejected' };
+    chai.request(app)
+      .patch('/api/v1/loans/1')
+      .set('x-access-token', token1)
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(201);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
+
+  it('Approve or reject loan  ', (done) => {
+    const loan = { status: 'rejected' };
+    chai.request(app)
+      .patch('/api/v1/loans/50')
+      .set('x-access-token', token1)
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
   // it('should bring all unpaid loans ', (done) => {
   //   const loan = {};
   //   chai.request(app)
@@ -144,18 +169,7 @@ describe('Loans tests', () => {
   //       done();
   //     });
   // });
-  // it('Approve or reject loan  ', (done) => {
-  //   const loan = { status: 'rejected' };
-  //   chai.request(app)
-  //     .patch('/api/v1/loans/2')
-  //     .set('x-access-token', token1)
-  //     .send(loan)
-  //     .end((err, res) => {
-  //       res.should.have.status(200);
-  //       expect(res.body).be.an('object');
-  //       done();
-  //     });
-  // });
+
 
   // it('Loan not found  ', (done) => {
   //   const loan = { status: 'rejected' };
@@ -170,31 +184,31 @@ describe('Loans tests', () => {
   //     });
   // });
 
-  // it('payment record  ', (done) => {
-  //   const loan = { id: 1 };
-  //   chai.request(app)
-  //     .post('/api/v1/loans/1/repayment')
-  //     .set('x-access-token', token1)
-  //     .send(loan)
-  //     .end((err, res) => {
-  //       res.should.have.status(201);
-  //       expect(res.body).be.an('object');
-  //       done();
-  //     });
-  // });
+  it('payment record  ', (done) => {
+    const loan = { id: 1 };
+    chai.request(app)
+      .post('/api/v1/loans/1/repayment')
+      .set('x-access-token', token1)
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(201);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
 
-  // it('record  ', (done) => {
-  //   const loan = {};
-  //   chai.request(app)
-  //     .post('/api/v1/loans/93/repayment')
-  //     .set('x-access-token', token1)
-  //     .send(loan)
-  //     .end((err, res) => {
-  //       res.should.have.status(404);
-  //       expect(res.body).be.an('object');
-  //       done();
-  //     });
-  // });
+  it('record  ', (done) => {
+    const loan = {};
+    chai.request(app)
+      .post('/api/v1/loans/93/repayment')
+      .set('x-access-token', token1)
+      .send(loan)
+      .end((err, res) => {
+        res.should.have.status(404);
+        expect(res.body).be.an('object');
+        done();
+      });
+  });
 
 
   it('App should exists', () => {

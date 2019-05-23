@@ -167,6 +167,92 @@ const Loans = {
       });
     }
   },
+  async approve(req, res) {
+    const { id } = req.params;
+    const { status } = req.body;
+    const checkLoan = {
+      text: 'SELECT * FROM loans WHERE id = $1',
+      values: [id],
+    };
+    const update = {
+      text: 'UPDATE loans SET status = $1 WHERE id = $2 RETURNING *',
+      values: [status, id],
+    };
+    try {
+      const { rows } = await db.query(checkLoan);
+      if (rows[0] && rows[0].status === 'pending') {
+        const { rows: updateStatus } = await db.query(update);
+        return res.status(201).json({
+          status: 201,
+          data: {
+            loanId: id,
+            loanAmount: updateStatus[0].amount,
+            tenor: updateStatus[0].tenor,
+            status: updateStatus[0].status,
+            monthlyInstallment: updateStatus[0].monthlyInstallment,
+            interest: updateStatus[0].interest,
+          },
+        });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: 'Loan not found',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: `Internal server error ${error.message}`,
+      });
+    }
+  },
+  async createRepayment(req, res) {
+    const { id } = req.params;
+    const checkLoan = {
+      text: 'SELECT * FROM loans WHERE id = $1',
+      values: [id],
+    };
+
+
+    try {
+      const { rows } = await db.query(checkLoan);
+      if (rows[0]) {
+        const loanId = id;
+        const {
+          amount,
+          paymentInstallment,
+          balance,
+        } = rows[0];
+        const paidAmount = amount - balance;
+
+        const createQuery = {
+          text: 'INSERT INTO repayments(loanId, amount) VALUES($1, $2) RETURNING *',
+          values: [loanId, paidAmount],
+        };
+        const { rows: add } = await db.query(createQuery);
+        return res.status(201).json({
+          status: 201,
+          data: {
+            id: add[0].id,
+            loanId,
+            createdOn: add[0].createdOn,
+            amount,
+            monthlyInstallment: paymentInstallment,
+            paidAmount,
+            balance,
+          },
+        });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: 'No loans found',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: `Internal server error ${error.message}`,
+      });
+    }
+  },
 
 };
 

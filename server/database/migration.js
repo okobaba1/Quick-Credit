@@ -62,8 +62,8 @@ const Migration = {
         'Admin',
         'victor',
         'victoradmin@quickcredit.com',
-        bcrypt.hash('password', 10),
         '1, Quick Credit Avenue',
+        bcrypt.hash('password', 10),
         'verified',
         true,
       ];

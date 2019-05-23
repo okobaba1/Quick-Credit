@@ -34,7 +34,7 @@ const Migration = {
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
         createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        status DEFAULT 'pending',
+        status VARCHAR(50) DEFAULT 'pending',
         repaid BOOLEAN DEFAULT false,
         tenor INTEGER NOT NULL,
         amount FLOAT NOT NULL,
@@ -64,7 +64,6 @@ const Migration = {
         'victoradmin@quickcredit.com',
         bcrypt.hash('password', 10),
         '1, Quick Credit Avenue',
-        '2, Quick Credit Complex',
         'verified',
         true,
       ];

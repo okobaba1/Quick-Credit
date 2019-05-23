@@ -12,7 +12,7 @@
     "db": "psql -U user -f server/database/createTables.sql",
     "heroku:db": "psql -U user -f -dist/database/createTables.sql",
     "testdb": "psql -U postgres -f server/database/createTablesTest.sql",
-    "db:migrate": "babel ./dist/database/migration",
+    "db:migrate": "babel-node ./server/database/migration",
     "heroku:migrate": "node dist/database/migration"
   },
   "repository": {

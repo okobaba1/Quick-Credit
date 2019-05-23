@@ -12,8 +12,8 @@ const validator = [
 ];
 
 const applyForLoan = [
-  check('amount').not().isEmpty().withMessage('First name field cannot be empty.'),
-  check('tenor').not().isEmpty().withMessage('Last name field cannot be empty.'),
+  check('amount').not().isEmpty().withMessage('Amount field cannot be empty.'),
+  check('tenor').not().isEmpty().withMessage('Kindly input Tenor.'),
   check('tenor').isInt().withMessage('Please input your tenor in digits'),
   // check('tenor').custom((tenor) => {
   //   if (tenor < 1 && tenor > 12) {

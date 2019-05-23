@@ -28,7 +28,7 @@ const Users = {
 
     try {
       const { rows } = await db.query(checkUser);
-      if (rows.length) {
+      if (rows[0]) {
         return res.status(409).json({
           status: 409,
           error: 'User already exists',

@@ -17,8 +17,6 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
-var _crypto = require("crypto");
-
 var _dbconnection = _interopRequireDefault(require("../database/dbconnection"));
 
 // import uuid from 'uuid';
@@ -61,7 +59,7 @@ var Users = {
               _ref = _context.sent;
               rows = _ref.rows;
 
-              if (!rows.length) {
+              if (!rows[0]) {
                 _context.next = 13;
                 break;
               }

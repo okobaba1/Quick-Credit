@@ -46,8 +46,9 @@ export const verifyUser = (req, res, next) => {
         error: 'Not authorized to perform this operation',
       });
     }
+    req.user = decoded;
   });
-  next();
+  return next();
 };
 
 export const verifySuperAdmin = (req, res, next) => {

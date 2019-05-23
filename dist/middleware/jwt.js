@@ -58,7 +58,7 @@ var verifyUser = function verifyUser(req, res, next) {
       });
     }
 
-    if (decoded.isAdmin != true) {
+    if (decoded.isAdmin == Boolean(true)) {
       return res.status(401).json({
         status: 401,
         error: 'Not authorized to perform this operation'

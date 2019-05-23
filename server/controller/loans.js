@@ -101,7 +101,8 @@ const Loans = {
   },
 
   async createLoan(req, res) {
-    const { email, amount, tenor } = req.body;
+    const { amount, tenor } = req.body;
+    const { email } = req.user;
     if (tenor < 1 || tenor > 12) {
       return res.status(400).json({
         status: 400,

@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS Quickcredit;
 CREATE DATABASE Quickcredit;
 \c Quickcredit;
 
+  
   CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -12,7 +13,6 @@ CREATE DATABASE Quickcredit;
     status VARCHAR(50) DEFAULT 'unverified',
     isadmin BOOLEAN DEFAULT false
   );
-
 
   DROP TYPE IF EXISTS loan_status;
   CREATE TYPE loan_status as ENUM ('pending', 'approved', 'rejected');
@@ -38,4 +38,6 @@ CREATE DATABASE Quickcredit;
   );
 
 
+  INSERT INTO users(firstname, lastname, address, email, password, isadmin, status)  
+  VALUES('pappy', 'bear', 'Lagos', 'pappybear@gmail.com', 'password', true, 'verified');
 

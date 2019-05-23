@@ -64,9 +64,11 @@ var verifyUser = function verifyUser(req, res, next) {
         error: 'Not authorized to perform this operation'
       });
     }
+
+    req.user = decoded;
   });
 
-  next();
+  return next();
 };
 
 exports.verifyUser = verifyUser;

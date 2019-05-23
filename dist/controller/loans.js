@@ -233,16 +233,17 @@ var Loans = {
     var _createLoan = (0, _asyncToGenerator2["default"])(
     /*#__PURE__*/
     _regenerator["default"].mark(function _callee4(req, res) {
-      var _req$body, email, amount, tenor, checkUser, checkLoan, _ref5, rows, _ref6, rowsCheck, createdOn, interest, paymentInstallment, balance, createQuery, _ref7, create;
+      var _req$body, amount, tenor, email, checkUser, checkLoan, _ref5, rows, _ref6, rowsCheck, createdOn, interest, paymentInstallment, balance, createQuery, _ref7, create;
 
       return _regenerator["default"].wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _req$body = req.body, email = _req$body.email, amount = _req$body.amount, tenor = _req$body.tenor;
+              _req$body = req.body, amount = _req$body.amount, tenor = _req$body.tenor;
+              email = req.user.email;
 
               if (!(tenor < 1 || tenor > 12)) {
-                _context4.next = 3;
+                _context4.next = 4;
                 break;
               }
 
@@ -251,7 +252,7 @@ var Loans = {
                 error: 'Tenor should be from 1 to 12'
               }));
 
-            case 3:
+            case 4:
               checkUser = {
                 text: 'SELECT * FROM users WHERE email = $1',
                 values: [email]
@@ -260,16 +261,16 @@ var Loans = {
                 text: 'SELECT * FROM loans WHERE email = $1',
                 values: [email]
               };
-              _context4.prev = 5;
-              _context4.next = 8;
+              _context4.prev = 6;
+              _context4.next = 9;
               return _dbconnection["default"].query(checkUser);
 
-            case 8:
+            case 9:
               _ref5 = _context4.sent;
               rows = _ref5.rows;
 
               if (!(!rows[0] || !rows[0].status === 'verified')) {
-                _context4.next = 12;
+                _context4.next = 13;
                 break;
               }
 
@@ -278,16 +279,16 @@ var Loans = {
                 error: 'Account status is not verified yet, try again later'
               }));
 
-            case 12:
-              _context4.next = 14;
+            case 13:
+              _context4.next = 15;
               return _dbconnection["default"].query(checkLoan);
 
-            case 14:
+            case 15:
               _ref6 = _context4.sent;
               rowsCheck = _ref6.rows;
 
               if (!(rowsCheck[0] && rowsCheck[0].balance > 0)) {
-                _context4.next = 18;
+                _context4.next = 19;
                 break;
               }
 
@@ -296,7 +297,7 @@ var Loans = {
                 error: 'Pay up your debt'
               }));
 
-            case 18:
+            case 19:
               createdOn = (0, _moment["default"])().toDate();
               interest = 0.05 * Number(amount);
               paymentInstallment = ((amount + interest) / tenor).toFixed(2);
@@ -305,10 +306,10 @@ var Loans = {
                 text: 'INSERT INTO loans(email, createdOn, tenor, amount, paymentInstallment, balance, interest) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
                 values: [email, createdOn, tenor, amount, paymentInstallment, balance, interest]
               };
-              _context4.next = 25;
+              _context4.next = 26;
               return _dbconnection["default"].query(createQuery);
 
-            case 25:
+            case 26:
               _ref7 = _context4.sent;
               create = _ref7.rows;
               return _context4.abrupt("return", res.status(201).json({
@@ -327,20 +328,20 @@ var Loans = {
                 }
               }));
 
-            case 30:
-              _context4.prev = 30;
-              _context4.t0 = _context4["catch"](5);
+            case 31:
+              _context4.prev = 31;
+              _context4.t0 = _context4["catch"](6);
               return _context4.abrupt("return", res.status(500).json({
                 status: 500,
                 error: "Internal server error ".concat(_context4.t0.message)
               }));
 
-            case 33:
+            case 34:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[5, 30]]);
+      }, _callee4, null, [[6, 31]]);
     }));
 
     function createLoan(_x7, _x8) {

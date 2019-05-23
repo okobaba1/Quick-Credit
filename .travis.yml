@@ -4,6 +4,9 @@ services:
   - postgresql
 node_js: 
   - "stable"
+env:
+  global:
+    - NODE_ENV=test
 
 install: 
   - npm install

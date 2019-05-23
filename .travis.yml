@@ -10,7 +10,7 @@ install:
 
 before_script:
   - psql -c "CREATE DATABASE quickcredit_testdb;" -U postgres
-  # - psql -c "CREATE USER user WITH PASSWORD 'user';" -U postgres
+  - psql -c "CREATE USER user WITH PASSWORD 'user';" -U postgres
 script:
   - npm run test
   - npm run coveralls

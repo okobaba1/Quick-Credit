@@ -16,8 +16,8 @@ router.get('/loans/:id', verifyAdmin, Loans.specific);
 router.get('/loans', verifyAdmin, Loans.viewLoans);
 router.get('/loans/:id/repayments', Loans.repaymentHistory);
 router.post('/loans', applyForLoan, validationHandler, verifyUser, Loans.createLoan);
-// router.patch('/loans/:id', verifyAdmin, Loan.Approveloan);
-// router.post('/loans/:id/repayment', verifyAdmin, Loan.repaymentRecord);
+router.patch('/loans/:id', verifyAdmin, Loans.approve);
+router.post('/loans/:id/repayment', verifyAdmin, Loans.createRepayment);
 // router.patch('/admin/:id', verifySuperAdmin, Users.superAdmin);
 
 export default router;

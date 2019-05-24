@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -7,23 +9,29 @@ exports["default"] = void 0;
 
 var _express = _interopRequireDefault(require("express"));
 
-var _user = _interopRequireDefault(require("../controller/user"));
+var _users = _interopRequireDefault(require("../controller/users"));
 
-var _loan = _interopRequireDefault(require("../controller/loan"));
+var _loans = _interopRequireDefault(require("../controller/loans"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _valid = _interopRequireDefault(require("../middleware/valid"));
+
+var _jwt = require("../middleware/jwt");
+
+var validator = _valid["default"].validator,
+    validationHandler = _valid["default"].validationHandler,
+    applyForLoan = _valid["default"].applyForLoan; // const { verifyUs } = verifyUSer;
 
 var router = _express["default"].Router();
 
-router.post('/auth/signup', _user["default"].createUser);
-router.post('/auth/signin', _user["default"].login);
-router.patch('/users/:email/verify', _user["default"].verifyUSer);
-router.get('/loans/:id', _loan["default"].specific);
-router.get('/loans', _loan["default"].unpaid);
-router.get('/loans', _loan["default"].paid);
-router.get('/loan', _loan["default"].allLoans);
-router.get('/loans/:id/repayments', _loan["default"].loanRepayment);
-router.post('/loans', _loan["default"].loanApply);
-router.patch('/loans/:id', _loan["default"].Approveloan);
+router.post('/auth/signup', validator, validationHandler, _users["default"].create);
+router.post('/auth/signin', _users["default"].login);
+router.patch('/users/:email/verify', _jwt.verifyAdmin, _users["default"].verify);
+router.get('/loans/:id', _jwt.verifyAdmin, _loans["default"].specific);
+router.get('/loans', _jwt.verifyAdmin, _loans["default"].viewLoans);
+router.get('/loans/:id/repayments', _loans["default"].repaymentHistory);
+router.post('/loans', applyForLoan, validationHandler, _jwt.verifyUser, _loans["default"].createLoan);
+router.patch('/loans/:id', _jwt.verifyAdmin, _loans["default"].approve);
+router.post('/loans/:id/repayment', _jwt.verifyAdmin, _loans["default"].createRepayment); // router.patch('/admin/:id', verifySuperAdmin, Users.superAdmin);
+
 var _default = router;
 exports["default"] = _default;

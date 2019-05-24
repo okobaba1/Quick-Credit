@@ -1,5 +1,4 @@
 import { check, validationResult } from 'express-validator/check';
-import { runInNewContext } from 'vm';
 
 const validator = [
   check('firstName').not().isEmpty().withMessage('First name field cannot be empty.'),
@@ -12,6 +11,18 @@ const validator = [
 
 ];
 
+const applyForLoan = [
+  check('amount').not().isEmpty().withMessage('Amount field cannot be empty.'),
+  check('tenor').not().isEmpty().withMessage('Kindly input Tenor.'),
+  check('tenor').isInt().withMessage('Please input your tenor in digits'),
+  // check('tenor').custom((tenor) => {
+  //   if (tenor < 1 && tenor > 12) {
+  //     throw new Error('Please input digits between 1 and 12');
+  //   }
+  // }),
+];
+
+
 const validationHandler = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -23,10 +34,11 @@ const validationHandler = (req, res, next) => {
   next();
 };
 
-
 const valid = {
   validationHandler,
   validator,
+  applyForLoan,
 };
+
 
 export default valid;

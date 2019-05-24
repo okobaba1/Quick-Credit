@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
 import userDummyData from '../dummyData/auth';
 
@@ -23,11 +22,11 @@ class User {
     }
 
     // Confirm for empty requests
-    if (email.length && firstName.length
-       && lastName.length && password.length
-        && address.length) {
+    if (email && firstName
+       && lastName && password
+        && address) {
       userData = {
-        id: userDummyData.length, email, firstName, lastName, password, address, status: 'unverified', isAdmin: false,
+        id: userDummyData.length + 1, email, firstName, lastName, password, address, status: 'unverified', isAdmin: false,
       };
       userDummyData.push(userData); // copy/add to dummy data
       const token = jwt.sign({
@@ -55,19 +54,21 @@ class User {
   static login(req, res) {
     const { email, password } = req.body;
     // confirm for empty input
-    if (email.length && password.length) {
+    if (email && password) {
       // check if email is in already signed up
       const existingUser = userDummyData.filter(user => user.email === email
         && user.password === password);
       if (existingUser.length === 1) {
         // generate token
-        const token = jwt.sign({
-          email,
-          id: userDummyData.length,
-        }, process.env.SECRET_KEY, { expiresIn: '72hrs' });
         const { firstName } = existingUser[0];
         const { lastName } = existingUser[0];
         const { id } = existingUser[0];
+        const { isAdmin } = existingUser[0];
+        const token = jwt.sign({
+          email,
+          id,
+          isAdmin,
+        }, process.env.SECRET_KEY, { expiresIn: '172hrs' });
         return res.status(200).json({
           status: 200,
           data: {
@@ -80,8 +81,8 @@ class User {
           },
         });
       }
-      return res.status(404).json({
-        status: 404,
+      return res.status(401).json({
+        status: 401,
         error: 'email/password is incorrect',
       });
     }
@@ -116,8 +117,8 @@ class User {
 
   static superAdmin(req, res) {
     const { id } = req.params;
-    const userToAdmin = userDummyData.filter(user => user.isAdmin === false && user.id === Number(id));
-    if (userToAdmin.length >= 1) {
+    const userToAdmin = userDummyData.find(user => user.isAdmin === false && user.id === Number(id));
+    if (userToAdmin) {
       userDummyData.find(user => user.id === Number(id)).status = 'verified';
       return res.status(201).json({
         status: 201,

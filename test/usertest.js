@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server/app';
+// import db from '../server/database/dbconnection';
 
 const {
   expect, assert, should,
@@ -10,6 +11,7 @@ should();
 
 // users sign up tests
 describe('User', () => {
+  const token1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtb3NAZW1haWwuY29tIiwiaWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTU1ODM4NjQ5OSwiZXhwIjoxNTU5MDA1Njk5fQ.27dhMetylbPDmbzyqbmnvvMdv6UfIg36R32ckFAZP-M';
   it('should sign up a user', (done) => {
     const user = {
       email: 'victor@gmail.com',
@@ -24,18 +26,18 @@ describe('User', () => {
       .end((err, res) => {
         res.should.have.status(201);
         expect(res.body).be.an('object');
-        expect(res.body.status).be.a('string');
+        expect(res.body.status).be.a('number');
         expect(res.body.data).be.an('object');
-        assert.equal(res.body.status, 'Success');
+        assert.equal(res.body.status, 201);
         done();
       });
   });
   it('User already exists', (done) => {
     const user = {
-      email: 'amos@email.com',
+      email: 'victor@gmail.com',
       firstName: 'moke',
       lastName: 'ilo',
-      password: 'jdhsbahs',
+      password: '1234hdgdpds',
       address: '12 wer',
     };
     chai.request(app)
@@ -51,30 +53,12 @@ describe('User', () => {
         done();
       });
   });
-  it('returns a bad request', (done) => {
-    const user = {
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-      address: '',
-      status: '',
-    };
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(400);
-        expect(res.body).be.an('object');
-        done();
-      });
-  });
 
   // User login tests
   it('User Login', (done) => {
     const user = {
-      email: 'amos@email.com',
-      password: 'bkdnn123',
+      email: 'victor@gmail.com',
+      password: '1234hdgdpds',
     };
     chai.request(app)
       .post('/api/v1/auth/signin')
@@ -84,27 +68,25 @@ describe('User', () => {
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
         expect(res.body.data).be.an('object');
-        expect(res.body.data.firstName).be.a('string');
-        expect(res.body.data.lastName).be.a('string');
         assert.equal(res.body.status, 200);
-        assert.equal(res.body.data.message, 'login successsful');
+        assert.equal(res.body.message, 'login successsful');
         done();
       });
   });
-  it('Incorrect Username/Password', (done) => {
+  it('Not signed up', (done) => {
     const user = {
       email: 'ab@gmail.com',
-      password: '1234',
+      password: '1234hsvsz',
     };
     chai.request(app)
       .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(400);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
-        assert.equal(res.body.status, 404);
-        assert.equal(res.body.error, 'email/password is incorrect');
+        assert.equal(res.body.status, 400);
+        assert.equal(res.body.error, 'Please sign Up');
         done();
       });
   });
@@ -129,20 +111,36 @@ describe('User', () => {
   it('Verify user', (done) => {
     const user = {};
     chai.request(app)
-      .patch('/api/v1/users/tracktamos@email.com/verify')
+      .patch('/api/v1/users/victor@gmail.com/verify')
+      .set('x-access-token', token1)
       .send(user)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         expect(res.body).be.an('object');
         expect(res.body.status).be.a('number');
-        assert.equal(res.body.data.status, 'verified');
         done();
       });
   });
   it('Verify user', (done) => {
     const user = {};
     chai.request(app)
-      .patch('/api/v1/users/amos@email.com/verify')
+      .patch('/api/v1/users/amogshss@email.com/verify')
+      .set('x-access-token', token1)
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401);
+        expect(res.body).be.an('object');
+        expect(res.body.status).be.a('number');
+        assert.equal(res.body.error, 'Not a registered email');
+        done();
+      });
+  });
+
+  it('Verify user', (done) => {
+    const user = {};
+    chai.request(app)
+      .patch('/api/v1/users/victor@gmail.com/verify')
+      .set('x-access-token', token1)
       .send(user)
       .end((err, res) => {
         res.should.have.status(401);
@@ -153,31 +151,28 @@ describe('User', () => {
       });
   });
 
-  it('Super Admin success', (done) => {
-    const user = {};
-    chai.request(app)
-      .patch('/api/v1/admin/2')
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(201);
-        expect(res.body).be.an('object');
-        expect(res.body.status).be.a('number');
-        assert.equal(res.body.message, 'Admin created succesfully');
-        done();
-      });
-  });
+  //   it('Super Admin success', (done) => {
+  //     chai.request(app)
+  //       .patch('/api/v1/admin/2')
+  //       .set('x-access-token', token1)
+  //       .end((err, res) => {
+  //         res.should.have.status(401);
+  //         expect(res.body).be.an('object');
+  //         expect(res.body.status).be.a('number');
+  //         done();
+  //       });
+  //   });
 
-  it.skip('Super Admin failed', (done) => {
-    const user = {};
-    chai.request(app)
-      .patch('/api/v1/users/29')
-      .send(user)
-      .end((err, res) => {
-        res.should.have.status(404);
-        expect(res.body).be.an('object');
-        // expect(res.body.status).be.a('number');
-        assert.equal(res.body.error, 'User not found');
-        done();
-      });
-  });
+//   it('Super Admin failed', (done) => {
+//     const user = {};
+//     chai.request(app)
+//       .patch('/api/v1/admin/29')
+//       .set('x-access-token', token1)
+//       .send(user)
+//       .end((err, res) => {
+//         res.should.have.status(401);
+//         expect(res.body).be.an('object');
+//         done();
+//       });
+//   });
 });

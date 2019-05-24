@@ -1,7 +1,5 @@
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
-// import uuid from 'uuid';
-import bcrypt from 'bcrypt';
 import db from '../database/dbconnection';
 
 const Loans = {
@@ -60,7 +58,7 @@ const Loans = {
       }
       return res.status(200).json({
         status: 200,
-        data: rows,
+        data: rows[0],
       });
     } catch (error) {
       return res.status(400).json({
@@ -81,16 +79,11 @@ const Loans = {
       if (!rows[0]) {
         return res.status(404).json({
           status: 404,
-          error: 'Not a Loan Application',
+          error: 'No Loan Repayment found',
         });
       } return res.status(200).json({
         status: 200,
-        data: {
-          loanid: rows[0].loanid,
-          createdOn: rows[0].createdOn,
-          monthlyInstallment: rows[0].monthlyInstallment,
-          amount: rows[0].amount,
-        },
+        data: rows,
       });
     } catch (error) {
       return res.status(400).json({
@@ -132,7 +125,7 @@ const Loans = {
       if (rowsCheck[0] && rowsCheck[0].balance > 0) {
         return res.status(401).json({
           status: 401,
-          error: 'Pay up your debt',
+          error: 'Previous loans not fully paid ',
         });
       }
       const createdOn = moment().toDate();
@@ -207,29 +200,33 @@ const Loans = {
     }
   },
   async createRepayment(req, res) {
-    const { id } = req.params;
+    const { loanId, paidAmount } = req.body;
     const checkLoan = {
       text: 'SELECT * FROM loans WHERE id = $1',
-      values: [id],
+      values: [loanId],
     };
 
 
     try {
       const { rows } = await db.query(checkLoan);
       if (rows[0]) {
-        const loanId = id;
         const {
           amount,
           paymentInstallment,
           balance,
         } = rows[0];
-        const paidAmount = amount - balance;
+        const newBalance = balance - paidAmount;
+        const update = {
+          text: 'UPDATE loans SET balance = $1 WHERE id = $2 RETURNING *',
+          values: [newBalance, loanId],
+        };
 
         const createQuery = {
           text: 'INSERT INTO repayments(loanId, amount) VALUES($1, $2) RETURNING *',
           values: [loanId, paidAmount],
         };
         const { rows: add } = await db.query(createQuery);
+        await db.query(update);
         return res.status(201).json({
           status: 201,
           data: {
@@ -239,13 +236,13 @@ const Loans = {
             amount,
             monthlyInstallment: paymentInstallment,
             paidAmount,
-            balance,
+            balance: newBalance,
           },
         });
       }
       return res.status(404).json({
         status: 404,
-        error: 'No loans found',
+        error: 'No loan found',
       });
     } catch (error) {
       return res.status(500).json({

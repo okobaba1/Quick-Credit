@@ -66,7 +66,7 @@ export const verifySuperAdmin = (req, res, next) => {
         error: 'Failed to Authenticate token',
       });
     }
-    if (decoded.isAdmin == true) {
+    if (decoded.email !== 'victoradmin@quickcredit.com') {
       return res.status(401).json({
         status: 401,
         error: 'Not authorized to perform this operation',

@@ -18,6 +18,6 @@ router.get('/loans/:id/repayments', Loans.repaymentHistory);
 router.post('/loans', applyForLoan, validationHandler, verifyUser, Loans.createLoan);
 router.patch('/loans/:id', verifyAdmin, Loans.approve);
 router.post('/loans/:id/repayment', verifyAdmin, Loans.createRepayment);
-// router.patch('/admin/:id', verifySuperAdmin, Users.superAdmin);
+router.patch('/admin/:id', verifySuperAdmin, Users.superAdmin);
 
 export default router;

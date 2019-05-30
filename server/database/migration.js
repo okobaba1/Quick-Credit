@@ -59,9 +59,9 @@ const Migration = {
     VALUES($1,$2,$3,$4,$5,$6,$7)
     RETURNING email, firstName, lastName, address, status, isAdmin`;
       const values = [
+        'victoradmin@quickcredit.com',
         'Admin',
         'victor',
-        'victoradmin@quickcredit.com',
         '1, Quick Credit Avenue',
         bcrypt.hash('password', 10),
         'verified',

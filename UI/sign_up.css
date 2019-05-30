@@ -42,7 +42,7 @@ body {
 
 input[type=text], input[type=password], input[type=number]{
     width: 100%;
-    padding: 3px;
+    padding: 8px;
     height: 40px;
     border-radius: 10px;
     background: #ebe0e0b4;

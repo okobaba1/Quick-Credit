@@ -114,7 +114,7 @@ const Loans = {
 
     try {
       const { rows } = await db.query(checkUser);
-      if (!rows[0] || !rows[0].status === 'verified') {
+      if (!rows[0] || rows[0].status !== 'verified') {
         return res.status(400).json({
           status: 400,
           error: 'Account status is not verified yet, try again later',

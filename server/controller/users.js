@@ -15,7 +15,7 @@ const Users = {
       email, firstName, lastName, password, address,
     } = req.body;
 
-    const hashedPassword = bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const checkUser = {
       text: 'SELECT * FROM users WHERE email = $1',
@@ -78,8 +78,8 @@ const Users = {
           status: 400,
           error: 'Please sign Up',
         });
-      } bcrypt.compare(password, rows[0].password, () => {
-        if (!res) {
+      } bcrypt.compare(password, rows[0].password, (error, response) => {
+        if (!response) {
           return res.status(401).json({
             status: 401,
             error: 'Incorrect password',
@@ -87,7 +87,7 @@ const Users = {
         } const token = jwt.sign({
           email,
           id: rows[0].id,
-          isAdmin: rows[0].isAdmin,
+          isAdmin: rows[0].isadmin,
         }, process.env.SECRET_KEY, { expiresIn: '1024hrs' });
         return res.status(200).json({
           status: 200,
@@ -95,8 +95,8 @@ const Users = {
           data: {
             token,
             id: rows[0].id,
-            firstName: rows[0].firstName,
-            lastName: rows[0].lastName,
+            firstName: rows[0].firstname,
+            lastName: rows[0].lastname,
             email: rows[0].email,
           },
         });
@@ -138,9 +138,8 @@ const Users = {
         status: 201,
         data: {
           email,
-          firstName: rowsUpdate[0].firstName,
-          lastName: rowsUpdate[0].lastName,
-          password: rowsUpdate[0].password,
+          firstName: rowsUpdate[0].firstname,
+          lastName: rowsUpdate[0].lastname,
           address: rowsUpdate[0].address,
           status: rowsUpdate[0].status,
         },
@@ -164,7 +163,7 @@ const Users = {
 
       if (!rows[0]) {
         return res(400).json({
-          status: 200,
+          status: 400,
           error: 'Not a Registered User',
         });
       }

@@ -69,13 +69,18 @@ const Loans = {
   },
 
   async repaymentHistory(req, res) {
-    const { loanid } = req.params;
+    const { id } = req.params;
     const checkLoan = {
       text: 'SELECT * FROM repayments WHERE loanid = $1',
-      values: [loanid],
+      values: [id],
+    };
+    const getInstallment = {
+      text: 'SELECT * FROM loans WHERE id = $1',
+      values: [id],
     };
     try {
       const { rows } = await db.query(checkLoan);
+      const { rows: monthly } = await db.query(getInstallment);
       if (!rows[0]) {
         return res.status(404).json({
           status: 404,
@@ -83,6 +88,7 @@ const Loans = {
         });
       } return res.status(200).json({
         status: 200,
+        monthlyInstallment: monthly[0].paymentinstallment,
         data: rows,
       });
     } catch (error) {
@@ -201,10 +207,11 @@ const Loans = {
     }
   },
   async createRepayment(req, res) {
-    const { loanId, paidAmount } = req.body;
+    const { paidAmount } = req.body;
+    const { id } = req.params;
     const checkLoan = {
       text: 'SELECT * FROM loans WHERE id = $1',
-      values: [loanId],
+      values: [id],
     };
 
 
@@ -216,23 +223,48 @@ const Loans = {
           paymentInstallment,
           balance,
         } = rows[0];
+        if (paidAmount > balance) {
+          return res.status(400).json({
+            status: 400,
+            error: 'Repayment more than amount owed',
+          });
+        }
         const newBalance = balance - paidAmount;
         const update = {
           text: 'UPDATE loans SET balance = $1 WHERE id = $2 RETURNING *',
-          values: [newBalance, loanId],
+          values: [newBalance, id],
+        };
+        const updateRepaid = {
+          text: 'UPDATE loans SET repaid = TRUE WHERE id = $1 RETURNING *',
+          values: [id],
         };
 
         const createQuery = {
           text: 'INSERT INTO repayments(loanId, amount) VALUES($1, $2) RETURNING *',
-          values: [loanId, paidAmount],
+          values: [id, paidAmount],
         };
         const { rows: add } = await db.query(createQuery);
         await db.query(update);
+        if (newBalance <= 0) {
+          await db.query(updateRepaid);
+          return res.status(201).json({
+            status: 201,
+            data: {
+              id: add[0].id,
+              loanId: id,
+              createdOn: add[0].createdon,
+              amount,
+              monthlyInstallment: paymentInstallment,
+              paidAmount,
+              balance: newBalance,
+            },
+          });
+        }
         return res.status(201).json({
           status: 201,
           data: {
             id: add[0].id,
-            loanId,
+            loanId: id,
             createdOn: add[0].createdon,
             amount,
             monthlyInstallment: paymentInstallment,

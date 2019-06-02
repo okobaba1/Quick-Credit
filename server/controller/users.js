@@ -159,22 +159,22 @@ const Users = {
     };
     try {
       const { rows } = await db.query(checkUser);
-      console.log(rows[0]);
 
-      if (!rows[0]) {
-        return res(400).json({
-          status: 400,
-          error: 'Not a Registered User',
+      if (rows[0]) {
+        const update = {
+          text: 'UPDATE users SET isAdmin = TRUE WHERE id = $1 RETURNING *',
+          values: [id],
+        };
+        await db.query(update);
+        return res.status(200).json({
+          status: 200,
+          message: 'Created Admin',
+          email: rows[0].email,
         });
       }
-      const update = {
-        text: 'UPDATE users SET isAdmin = TRUE WHERE id = $1 RETURNING *',
-        values: [id],
-      };
-      await db.query(update);
-      return res.status(200).json({
-        status: 200,
-        message: 'Created Admin',
+      return res.status(400).json({
+        status: 400,
+        error: 'Not a Registered User',
       });
     } catch (error) {
       return res.status(500).json({
